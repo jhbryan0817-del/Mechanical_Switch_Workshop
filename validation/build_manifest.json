@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "units": "mm",
   "axis": [
     1,
@@ -13,6 +13,8 @@
   ],
   "horizontal_travel_mm": 52.0,
   "nominal_tape_area_mm2": 1500,
+  "component_count": 9,
+  "contact_land_z_mm": 7.3,
   "assumptions": {
     "rocker_mm": [
       17,
@@ -24,7 +26,7 @@
   },
   "parts": [
     {
-      "name": "01_adhesive_base",
+      "name": "01_mounting_frame",
       "printable": true,
       "group": "fixed",
       "visible": true,
@@ -81,83 +83,26 @@
       ]
     },
     {
-      "name": "04_direct_rocking_paddle",
+      "name": "04_integral_rocking_shoe",
       "printable": true,
       "group": "rotor",
       "visible": true,
-      "volume_mm3": 856.9599311859308,
+      "volume_mm3": 2532.874105112254,
       "bounds_mm": [
         [
-          -3.0,
-          -11.0,
-          12.0
+          -4.999999999999999,
+          -12.0,
+          7.300000000000001
         ],
         [
-          6.499999999999999,
-          11.0,
+          6.699999999999999,
+          12.0,
           25.999999999999996
         ]
       ]
     },
     {
-      "name": "05_tpu_leaf_insert_standard",
-      "printable": true,
-      "group": "rotor",
-      "visible": true,
-      "volume_mm3": 278.5686889368197,
-      "bounds_mm": [
-        [
-          -3.0,
-          -8.5,
-          6.799999999999999
-        ],
-        [
-          3.0,
-          8.5,
-          14.0
-        ]
-      ]
-    },
-    {
-      "name": "OPTION_tpu_insert_long",
-      "printable": true,
-      "group": "optional",
-      "visible": false,
-      "volume_mm3": 326.5686889368196,
-      "bounds_mm": [
-        [
-          -3.0,
-          -8.5,
-          4.799999999999999
-        ],
-        [
-          3.0,
-          8.5,
-          14.000000000000002
-        ]
-      ]
-    },
-    {
-      "name": "OPTION_tpu_insert_short",
-      "printable": true,
-      "group": "optional",
-      "visible": false,
-      "volume_mm3": 233.02305819743694,
-      "bounds_mm": [
-        [
-          -3.0,
-          -8.5,
-          8.8
-        ],
-        [
-          3.0,
-          8.5,
-          14.000000000000002
-        ]
-      ]
-    },
-    {
-      "name": "06_controller_shelf",
+      "name": "05_controller_shelf",
       "printable": true,
       "group": "carriage",
       "visible": true,
@@ -176,10 +121,10 @@
       ]
     },
     {
-      "name": "07_rounded_enclosure",
+      "name": "06_rounded_enclosure",
       "printable": true,
       "group": "carriage",
-      "visible": true,
+      "visible": false,
       "volume_mm3": 48680.32078584844,
       "bounds_mm": [
         [
@@ -191,63 +136,6 @@
           56.0,
           46.0,
           53.0
-        ]
-      ]
-    },
-    {
-      "name": "08_m3_pilot_coupon",
-      "printable": true,
-      "group": "optional",
-      "visible": false,
-      "volume_mm3": 7244.288500985192,
-      "bounds_mm": [
-        [
-          -23.0,
-          -9.0,
-          0.0
-        ],
-        [
-          23.0,
-          9.0,
-          9.0
-        ]
-      ]
-    },
-    {
-      "name": "REF_X_lock_screw_and_washer_1",
-      "printable": false,
-      "group": "fixed",
-      "visible": true,
-      "volume_mm3": 140.9554083849339,
-      "bounds_mm": [
-        [
-          -3.5,
-          -42.5,
-          4.8
-        ],
-        [
-          3.5,
-          -35.5,
-          17.799999999999997
-        ]
-      ]
-    },
-    {
-      "name": "REF_X_lock_screw_and_washer_2",
-      "printable": false,
-      "group": "fixed",
-      "visible": true,
-      "volume_mm3": 140.95540838493395,
-      "bounds_mm": [
-        [
-          -3.5,
-          35.5,
-          4.8
-        ],
-        [
-          3.5,
-          42.5,
-          17.799999999999997
         ]
       ]
     },
@@ -362,139 +250,6 @@
           45.0,
           15.0,
           38.9
-        ]
-      ]
-    },
-    {
-      "name": "REF_board_component_keepout_unmeasured",
-      "printable": false,
-      "group": "keepout",
-      "visible": false,
-      "volume_mm3": 19455.04122612798,
-      "bounds_mm": [
-        [
-          -20.0,
-          -15.0,
-          38.900000000000006
-        ],
-        [
-          45.0,
-          15.0,
-          49.0
-        ]
-      ]
-    },
-    {
-      "name": "REF_adhesive_1",
-      "printable": false,
-      "group": "fixed",
-      "visible": true,
-      "volume_mm3": 630.0000000000003,
-      "bounds_mm": [
-        [
-          -35.0,
-          -40.0,
-          0.0
-        ],
-        [
-          35.0,
-          -30.999999999999996,
-          1.0
-        ]
-      ]
-    },
-    {
-      "name": "REF_adhesive_2",
-      "printable": false,
-      "group": "fixed",
-      "visible": true,
-      "volume_mm3": 630.0000000000003,
-      "bounds_mm": [
-        [
-          -35.0,
-          30.999999999999996,
-          0.0
-        ],
-        [
-          35.0,
-          40.0,
-          1.0
-        ]
-      ]
-    },
-    {
-      "name": "REF_adhesive_3",
-      "printable": false,
-      "group": "fixed",
-      "visible": true,
-      "volume_mm3": 60.00000000000006,
-      "bounds_mm": [
-        [
-          -42.0,
-          -27.0,
-          0.0
-        ],
-        [
-          -38.0,
-          -12.0,
-          1.0
-        ]
-      ]
-    },
-    {
-      "name": "REF_adhesive_4",
-      "printable": false,
-      "group": "fixed",
-      "visible": true,
-      "volume_mm3": 60.00000000000006,
-      "bounds_mm": [
-        [
-          -42.0,
-          12.0,
-          0.0
-        ],
-        [
-          -38.0,
-          27.0,
-          1.0
-        ]
-      ]
-    },
-    {
-      "name": "REF_adhesive_5",
-      "printable": false,
-      "group": "fixed",
-      "visible": true,
-      "volume_mm3": 60.00000000000006,
-      "bounds_mm": [
-        [
-          38.0,
-          -27.0,
-          0.0
-        ],
-        [
-          42.0,
-          -12.0,
-          1.0
-        ]
-      ]
-    },
-    {
-      "name": "REF_adhesive_6",
-      "printable": false,
-      "group": "fixed",
-      "visible": true,
-      "volume_mm3": 60.00000000000006,
-      "bounds_mm": [
-        [
-          38.0,
-          12.0,
-          0.0
-        ],
-        [
-          42.0,
-          27.0,
-          1.0
         ]
       ]
     }

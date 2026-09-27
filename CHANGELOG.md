@@ -1,3 +1,10 @@
+# v0.3 — 2026-09-27
+
+- Simplified 25 loose bodies into nine named components containing twelve solids; removed tape, screw, alternate insert, coupon and keepout models.
+- Replaced the thin paddle/TPU leaf assembly with one integral PETG rocking shoe: 6.2 mm horn web with 11.7 mm bolt bosses, 5 mm bridge, two broad contact lands; stock metal horn retained.
+- Kept six printed assembly pieces and hid the cover by default for inspection.
+- Updated source, exports, print meshes, views and geometric reports. Documented limited travel, torque overload risk, material rationale and outstanding physical tests.
+
 # Change record
 
 ## v0.2 — 2026-09-27

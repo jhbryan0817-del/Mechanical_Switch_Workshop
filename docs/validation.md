@@ -1,35 +1,19 @@
-# Validation — v0.2
+# Validation — v0.3
 
-CAD and export checks completed on 2026-09-27. **No physical print, fit, adhesive-load, force or powered-cycle test has been performed.**
+This revision is a CAD prototype. No physical strength, latching, fatigue, adhesive or powered-cycle test has been performed.
 
-## Completed
+Completed geometric checks are recorded in validation/fusion_checks.json:
 
-- Inspected the existing live `Mechanical Switch` model and archived it before replacement.
-- Built 25 named, connected solid bodies, including clearly named hardware references and hidden alternative contact inserts.
-- Checked neutral intersections between assembled printed bodies and the modeled hardware: **no positive-volume overlap above 0.001 mm³**.
-- Checked 27 horizontal offsets, −26 to +26 mm in 2 mm increments, against the fixed base, faceplate, adhesive and modeled X-lock screw/washer envelopes: **no unintended overlaps**.
-- Checked 31 paddle angles, −30 to +30° in 2° increments: **no rigid interference**. The TPU insert's intentional intersections with the stationary rocker reference are recorded separately; they represent required switch movement and/or insert flex, not a physical compliance simulation.
-- Checked the provisional controller component envelope against printed parts: **no overlap**. The envelope excludes the PCB's mounting holes.
-- Exported **10 STL files**: seven assembled pieces, one pilot coupon, two substitute-depth inserts. All have valid binary lengths, closed two-triangle mesh edges and positive signed volume.
-- Exported native F3D and STEP successfully. Reimported the F3D into a separate document, confirming 25 solid bodies and matching names/volumes within 0.01 mm³. Closed the verification copy and retained the original document.
+- Nine components, twelve single-lump solids.
+- No positive-volume neutral overlap above 0.001 mm³.
+- No sampled collisions during 27 horizontal positions (−26 to +26 mm in 2 mm steps) against the modeled fixed parts.
+- No sampled shoe/horn collision with surrounding modeled structure at 31 angles (−30 to +30° in 2° steps).
+- Shoe intersections with the static rocker are recorded as required switch displacement, **not passed clearance or demonstrated latching**.
 
-Reports: [Fusion checks](../validation/fusion_checks.json), [mesh checks](../validation/stl_checks.json), [archive check](../validation/archive_reimport.json), [exports](../validation/exports.json), [dimension/body manifest](../validation/build_manifest.json).
+Checks exclude removed fasteners, tape and unmeasured electronics envelopes. There is no compliance, moving-switch, stress or continuous swept-volume analysis. Component transforms are identity in the verified model. The displayed simplified servo/PCB references omit real ears, leads and connectors.
 
-## What these checks establish
+STL manifold/volume results are in stl_checks.json. Native archive round-trip checks are in archive_reimport.json. Export status is in exports.json. These reports must describe v0.3; earlier revision results cannot qualify this geometry.
 
-They establish the modeled solids, nominal clearance samples and export integrity. They are not continuous-motion, stress, thread-strength or TPU deformation analyses. The switch is a static rounded reference, not a jointed simulation of its internal latch. Contact force and latching cannot be derived from a successful Boolean test. Hidden alternative inserts are excluded from the assembled interference checks.
+Required physical checks: actual switch identification and dimensions, clearance in both latched states, measured force/travel, horn attachment/tool clearance, print layer and screw strength, actual hardware fit, mount peel/creep, conservative torque/current calibration and repeated on/off operation. See mechanics.md for the conditional load estimate and limited travel budget.
 
-The X-lock fastener heads/washer envelopes are included. Other fastener heads, mounting ears, real connectors, component shapes and cable bends are not fully modeled. The controller component height, servo shaft offset and switch depth remain explicit assumptions. The 17 mm rocker outline is photo-scaled, not an exact identified SKU.
-
-## Physical acceptance still required
-
-1. Base lands contact flat plastic and clear the fixing caps; adhesive area alone does not establish holding capacity.
-2. Selected M3 pilot forms a durable thread without splitting. Screw tips stay within blind depths; the actual horn matches the slots.
-3. Servo body, ears, cable and controller fit with the enclosure installed. Nothing loads a connector or restricts the paddle.
-4. In both switch states, neutral clears both contact ends. Determine the smallest reliable stroke and correct insert depth.
-5. Measure TPU force/deflection, check available flex before hard contact and inspect permanent set. Do not infer protection from material softness alone.
-6. On an isolated switch, perform low-speed, conservatively limited actuation; return to neutral after each latch. Record missed latches, peak load/current and adhesive movement before increasing cycle count.
-
-## Repeat checks
-
-Run `python validation/check_stl.py` outside Fusion. In Fusion run `cad/verify_export.py` after the build transaction. The latter writes reports, captures views and exports only after the interference assertions pass. It targets the document named `Mechanical Switch`, even when another document was active.
+All six current STL files passed closed-edge and positive-volume checks. F3D and STEP exports succeeded. Reimporting the F3D confirmed all nine component names and twelve body names/volumes within 0.01 mm³. The original Fusion document save returned success.

@@ -64,166 +64,144 @@
     30
   ],
   "rigid_sweep_collisions": [],
-  "intended_soft_contact_with_flat_reference": [
+  "required_switch_displacement_against_static_reference": [
     {
       "angle_deg": -30,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 23.0201
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 28.5798
     },
     {
       "angle_deg": -28,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 21.5863
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 26.2152
     },
     {
       "angle_deg": -26,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 20.0557
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 23.5597
     },
     {
       "angle_deg": -24,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 18.4442
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 20.6347
     },
     {
       "angle_deg": -22,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 16.7305
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 17.4727
     },
     {
       "angle_deg": -20,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 14.9142
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 14.1244
     },
     {
       "angle_deg": -18,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 12.9953
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 10.6695
     },
     {
       "angle_deg": -16,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 10.9726
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 7.2348
     },
     {
       "angle_deg": -14,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 8.8446
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 4.0282
     },
     {
       "angle_deg": -12,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 6.6091
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 1.4094
     },
     {
       "angle_deg": -10,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 4.2634
-    },
-    {
-      "angle_deg": -8,
-      "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 1.8038
-    },
-    {
-      "angle_deg": -6,
-      "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 0.0371
-    },
-    {
-      "angle_deg": 6,
-      "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 0.0371
-    },
-    {
-      "angle_deg": 8,
-      "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 1.8038
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 0.0379
     },
     {
       "angle_deg": 10,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 4.2634
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 0.0379
     },
     {
       "angle_deg": 12,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 6.6091
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 1.4094
     },
     {
       "angle_deg": 14,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 8.8446
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 4.0282
     },
     {
       "angle_deg": 16,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 10.9726
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 7.2348
     },
     {
       "angle_deg": 18,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 12.9953
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 10.6695
     },
     {
       "angle_deg": 20,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 14.9142
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 14.1244
     },
     {
       "angle_deg": 22,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 16.7305
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 17.4727
     },
     {
       "angle_deg": 24,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 18.4442
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 20.6347
     },
     {
       "angle_deg": 26,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 20.0557
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 23.5597
     },
     {
       "angle_deg": 28,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 21.5863
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 26.2152
     },
     {
       "angle_deg": 30,
       "a": "REF_short_rounded_rocker_17mm_assumption",
-      "b": "05_tpu_leaf_insert_standard",
-      "overlap_mm3": 23.0201
+      "b": "04_integral_rocking_shoe",
+      "overlap_mm3": 28.5798
     }
   ],
-  "board_keepout_collisions_mm3": [],
-  "scope": "Rigid discrete geometric samples. TPU deformation, switch internal action, fasteners, real connector shapes and forces are not simulated.",
+  "board_keepout_collisions_mm3": null,
+  "version": "0.3",
+  "scope": "Rigid discrete geometric samples. Switch motion, facing compliance, strength, omitted hardware and real connector shapes are not simulated. Contact intersections are not clearance passes.",
   "all_bodies_solid": true,
-  "body_count": 25
+  "body_count": 12,
+  "component_count": 9
 }

@@ -1,14 +1,11 @@
-# References and dimensional provenance
+# References and assumptions — v0.3
 
-The current user request controls this revision: direct servo actuation of the short rocker in the supplied photograph, a compact enclosure, horizontal positioning over approximately the middle 60% of the faceplate, adhesive contact on faceplate plastic, and undersized printed M3 pilots. Attached material and old repository text were treated as reference context, not additional instructions.
+The current user's request controls this revision: simplify the live design, audit actuation of the pictured small Hong Kong switch, and choose a sturdier mechanism with no unnecessary CNC machining. Prior repository text and screenshots are reference material, not new instructions. Earlier mounting/adjustment choices were retained where compatible.
 
-The photograph is not redistributed. It shows a rounded-square button rather than an elongated rocker. Its approximate button/plate width ratio is 66/334 = 0.198; an 86 mm plate gives about 17 mm. This is the basis of the reference button, not an exact SKU identification. Projection (6 mm), switch travel and force remain unmeasured. The design therefore provides three insert depths and a replaceable contact interface.
+- [Schneider Hong Kong S-Classic E31_1_2AR_WE](https://www.se.com/hk/en/product/E31_1_2AR_WE/sclassic-1way-switch-1-gang-white/) is a related small-switch family. It is not a confirmed identification of the photograph. No controlled rocker dimensions, force or travel were obtained.
+- The photographed button/plate ratio suggests about 17 mm for an assumed 86 mm plate. The 17 × 17 × 6 mm rounded reference remains an estimate; 6 mm projection is not measured. Test both latched states.
+- [FEETECH STS3215 datasheet](https://files.seeedstudio.com/products/Feetech/108090023_STS3215-C001_Datasheet.pdf): body dimensions and the cited 7.4 V variant's torque. Verify the actual purchased variant, spline, horn pattern and shaft location.
+- [Waveshare driver documentation](https://docs.waveshare.com/Servo_Driver_with_ESP32): retained board reference. Real component and connector fit is not proven by the PCB outline.
+- [Autodesk temporary BRep API](https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager.htm): construction and Boolean checks.
 
-Related manufacturer information:
-
-- [Schneider S-Classic E31/1/2A](https://eshop.se.com/ae/switch-s-classic-250v-10ax-1-way-switch-1-gangs-white-e31-1-2a.html): a related small-button product family, **not a confirmed match** to the photograph. No exact rocker travel was obtained from this page.
-- [FEETECH STS3215 datasheet](https://files.seeedstudio.com/products/Feetech/108090023_STS3215-C001_Datasheet.pdf): retained servo model. The CAD uses the prior 45.2 × 24.7 × 35 mm body envelope. Shaft offset, supplied horn and mounting ears must be checked against the physical unit.
-- [Waveshare Servo Driver with ESP32](https://docs.waveshare.com/Servo_Driver_with_ESP32): 65 × 30 mm PCB, 58 × 23 mm mounting pattern and 2.75 mm holes. Component/plug geometry is represented by a provisional keepout, not an imported board model.
-- [Autodesk temporary BRep API](https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager.htm): repeatable direct-solid construction, copying, transformation and Boolean intersection checks.
-
-The previous green rectangle was the Waveshare PCB reference. In v0.2 the same controller is mounted internally above the servo and hidden by the cover during normal viewing.
+The current assembly has no adhesive, screw, optional insert or component-keepout solids. Physical tape, fasteners and wiring remain required. Photos are not redistributed.

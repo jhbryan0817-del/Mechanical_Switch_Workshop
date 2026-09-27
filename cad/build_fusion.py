@@ -1,4 +1,4 @@
-"""v0.2 direct rocker actuator. Dimensions mm; Z=0 faceplate front; X horizontal.
+"""v0.3 direct rocker actuator. Dimensions mm; Z=0 faceplate front; X horizontal.
 Run in an empty Mechanical Switch design. Export in a second transaction.
 Named direct solids are editable; these constants/source drive dimensional edits.
 """
@@ -8,17 +8,19 @@ REPLACE_EXISTING = False
 PILOT=2.7
 X_TRAVEL=52.0
 AXIS_Z=16.0
-PAD_CONTACT_Z=6.8
+PAD_CONTACT_Z=7.3 # rigid land; optional 0.5 mm soft facing gives 6.8 mm contact
 
 def run(_context: str):
  app=adsk.core.Application.get()
  doc=next(doc for doc in app.documents if doc.name=='Mechanical Switch')
  doc.activate();d=adsk.fusion.Design.cast(doc.products.itemByProductType('DesignProductType'));root=d.rootComponent
  assert doc.name=='Mechanical Switch'
- assert root.occurrences.count==0
+ assert REPLACE_EXISTING or root.occurrences.count==0
  if not REPLACE_EXISTING: assert root.bRepBodies.count==0, 'Archive existing design before replacement'
+ d.designIntent=adsk.fusion.DesignIntentTypes.HybridDesignIntentType
  d.designType=adsk.fusion.DesignTypes.DirectDesignType
  if REPLACE_EXISTING:
+  for o in list(root.occurrences): o.deleteMe()
   for b in list(root.bRepBodies): b.deleteMe()
   for sk in list(root.sketches): sk.deleteMe()
   for pl in list(root.constructionPlanes): pl.deleteMe()
@@ -46,19 +48,27 @@ def run(_context: str):
  def xslot(a,x0,x1,y0,y1,z,diam):
   s=box(x0,y0,z-diam/2,x1,y1,z+diam/2)
   op(s,xcyl(x0,x1,y0,z,diam/2));op(s,xcyl(x0,x1,y1,z,diam/2));return op(a,s,True)
- manifest=[]
+ manifest=[]; components={}
+ def target(name):
+  if name.startswith("REF_STS") or name.startswith("REF_servo") or name.startswith("REF_metal"): return "07 Servo and stock metal horn"
+  if name.startswith("REF_Waveshare"): return "08 ESP32 servo driver"
+  if name.startswith("REF_"): return "09 Reference switch board"
+  return name
  def meshout(b,name):
   calc=b.meshManager.createMeshCalculator();calc.surfaceTolerance=0.001
   mesh=calc.calculate();pts=mesh.nodeCoordinates;ids=mesh.nodeIndices;bb=b.boundingBox
   ox=bb.minPoint.x;oy=bb.minPoint.y;oz=bb.minPoint.z
   with open(os.path.join(OUT,'stl',name+'.stl'),'wb') as f:
-   f.write(b'Mechanical Switch v0.2; units mm'.ljust(80,b' '));f.write(struct.pack('<I',mesh.triangleCount))
+   f.write(b'Mechanical Switch v0.3; units mm'.ljust(80,b' '));f.write(struct.pack('<I',mesh.triangleCount))
    for i in range(0,len(ids),3):
     p=[pts[ids[i+j]] for j in range(3)];n=p[0].vectorTo(p[1]).crossProduct(p[0].vectorTo(p[2]));n.normalize()
     vals=[n.x,n.y,n.z]+[v for pp in p for v in ((pp.x-ox)*10,(pp.y-oy)*10,(pp.z-oz)*10)]
     f.write(struct.pack('<12fH',*vals,0))
  def part(name,body,color='Gray',printable=True,visible=True,group='carriage'):
-  b=root.bRepBodies.add(body);b.name=name
+  key=target(name)
+  if key not in components:
+   occ=root.occurrences.addNewComponent(adsk.core.Matrix3D.create());occ.component.name=key;components[key]=occ.component
+  b=components[key].bRepBodies.add(body);b.name=name
   assert b.isSolid and b.lumps.count==1, name+' must be one connected solid'
   appearance=app.materialLibraries.itemByName('Fusion Appearance Library').appearances.itemByName('Plastic - Matte ('+color+')')
   if appearance:b.appearance=appearance
@@ -71,7 +81,7 @@ def run(_context: str):
  for x in (-31,31):hole(a,x,0,0.9,2.1,12)
  for y in (-39,39):
   op(a,rr(-38,y-3,1,38,y+3,11,2));hole(a,0,y,3,11.1,PILOT)
- part('01_adhesive_base',a,'White',group='fixed')
+ part('01_mounting_frame',a,'White',group='fixed')
  # Internal carriage, sliding over the base on two front-access slot screws.
  a=box(-30,-43,11.3,48,-35,14.3);op(a,box(-30,35,11.3,48,43,14.3))
  for x in (-30,47.4):op(a,box(x,-42,11.3,x+2,42,14.3))
@@ -97,20 +107,16 @@ def run(_context: str):
  for x,y in ((16,-18),(43,37)):hole(a,x,y,28.9,31.1,3.4)
  op(a,box(46.5,21.5,28.9,54,28.5,31.1),True)
  part('03_servo_clamp',a)
- # Direct horn paddle. Adjustable two-hole bolt circle 12-16 mm; no printed spline.
- a=box(3.5,-11,12,6.5,11,26);op(a,xcyl(3.4,6.6,0,AXIS_Z,3.5),True)
+ # One rigid shoe: 6.2 mm horn web, broad 5 mm bridge, two integral contact lands.
+ # Slots and stock metal spline are retained; no TPU leaf, stem or central screw.
+ a=box(0.5,-12,12,6.7,12,26)
+ op(a,rr(-5,-9,11,5,9,16,1.5))
+ for y in (-6.5,6.5):op(a,rr(-5,y-2,PAD_CONTACT_Z,3,y+2,12,1))
+ for y in (-7,7):op(a,xcyl(-5,6.7,y,AXIS_Z,4.2))
+ op(a,xcyl(-5.1,6.8,0,AXIS_Z,3.5),True)
  for sign in (-1,1):
-  ys=sorted((sign*6,sign*8));xslot(a,3.4,6.6,ys[0],ys[1],AXIS_Z,3.4)
- op(a,box(-3,-3,14,6.5,3,17));hole(a,0,0,13.9,17.1,3.4)
- part('04_direct_rocking_paddle',a,'Yellow',group='rotor')
- # One removable TPU leaf insert. Two ends, one part, one direct rocking motion.
- def insert(z):
-  a=box(-3,-2,z+2.4,3,2,14);op(a,box(-3,-8.5,z+2.2,3,8.5,z+3.8))
-  for y in (-7.5,7.5):op(a,rr(-3,y-1,z,3,y+1,z+3.8,0.7))
-  hole(a,0,0,10.5,14.1,2.5);return a
- part('05_tpu_leaf_insert_standard',insert(PAD_CONTACT_Z),'Black',group='rotor')
- for name,z in (('long',4.8),('short',8.8)):
-  part('OPTION_tpu_insert_'+name,insert(z),'Black',visible=False,group='optional')
+  ys=sorted((sign*6,sign*8));xslot(a,-5.1,6.8,ys[0],ys[1],AXIS_Z,3.4)
+ part('04_integral_rocking_shoe',a,'Yellow',group='rotor')
  # Removable controller shelf above the servo. Pins fit board holes, ties retain.
  a=rr(-29,-29,33.3,54,29,35.3,3);op(a,rr(-14,-7,33.2,35,7,35.4,2),True)
  op(a,rr(-19,17,33.2,34,23,35.4,2),True)
@@ -119,7 +125,7 @@ def run(_context: str):
   for y in (-11.5,11.5):
    op(a,cyl(x,y,35.3,37.3,2.7));op(a,cyl(x,y,37.3,39.3,1.2))
    slot(a,x-2,x+2,y+(4.5 if y>0 else -4.5),33.2,35.4,1.8)
- part('06_controller_shelf',a)
+ part('05_controller_shelf',a)
  # Rounded enclosure, two millimetre walls, broad side connector access.
  a=rr(-33,-46,2.3,56,46,53,5);op(a,rr(-31,-44,2.2,54,44,51,3),True)
  for y0,y1 in ((-42.4,-35.6),(35.6,42.4)):op(a,box(-34,y0,2.2,57,y1,11.6),True)
@@ -127,14 +133,7 @@ def run(_context: str):
  for x,y in ((-25,-25),(-25,25),(44,-25),(50,25)):
   op(a,cyl(x,y,35.6,51.2,3.5));hole(a,x,y,35.5,53.1,3.4);hole(a,x,y,50.5,53.1,6.2)
  for y in (-7.5,-2.5,2.5,7.5):slot(a,-12,29,y,50.9,53.1,1.8)
- part('07_rounded_enclosure',a,'White')
- a=rr(-23,-9,0,23,9,9,2)
- for x,diam in ((-16.5,2.5),(-5.5,2.6),(5.5,2.7),(16.5,2.8)):hole(a,x,0,1,9.1,diam)
- part('08_m3_pilot_coupon',a,visible=False,group='optional')
- # Fixed X-lock hardware envelopes (thread core, washer and head).
- for i,y in enumerate((-39,39)):
-  a=cyl(0,y,4.8,14.8,1.3);op(a,cyl(0,y,14.3,14.8,3.5));op(a,cyl(0,y,14.8,17.8,2.75))
-  part('REF_X_lock_screw_and_washer_'+str(i+1),a,'Gray',False,group='fixed')
+ part('06_rounded_enclosure',a,'White',visible=False)
  # Simplified references, never print. Small rocker size comes from photo ratio.
  part('REF_faceplate_86mm',rr(-43,-43,-9,43,43,0,3),'White',False,group='fixed')
  part('REF_short_rounded_rocker_17mm_assumption',rr(-8.5,-8.5,0,8.5,8.5,6,4),'White',False,group='switch')
@@ -147,17 +146,11 @@ def run(_context: str):
  for x in (-16.5,41.5):
   for y in (-11.5,11.5):hole(a,x,y,37.2,39,2.75)
  part('REF_Waveshare_PCB_65x30',a,'Green',False)
- a=box(-20,-15,38.9,45,15,49)
- for x in (-16.5,41.5):
-  for y in (-11.5,11.5):hole(a,x,y,38.8,49.1,2.75)
- part('REF_board_component_keepout_unmeasured',a,'Green',False,False,group='keepout')
- for i,(x0,y0,x1,y1) in enumerate(((-35,-40,35,-31),(-35,31,35,40),(-42,-27,-38,-12),(-42,12,-38,27),(38,-27,42,-12),(38,12,42,27))):
-  part('REF_adhesive_'+str(i+1),box(x0,y0,0,x1,y1,1),'Yellow',False,group='fixed')
- data={'version':'0.2','units':'mm','axis':[1,0,0],'axis_origin_mm':[0,0,AXIS_Z],'horizontal_travel_mm':X_TRAVEL,'nominal_tape_area_mm2':1500,'assumptions':{'rocker_mm':[17,17,6],'servo_shaft_offset_mm':12.35,'pcb_component_height_mm':10.1},'parts':manifest}
+ data={'version':'0.3','units':'mm','axis':[1,0,0],'axis_origin_mm':[0,0,AXIS_Z],'horizontal_travel_mm':X_TRAVEL,'nominal_tape_area_mm2':1500,'component_count':len(components),'contact_land_z_mm':PAD_CONTACT_Z,'assumptions':{'rocker_mm':[17,17,6],'servo_shaft_offset_mm':12.35,'pcb_component_height_mm':10.1},'parts':manifest}
  with open(os.path.join(OUT,'validation','build_manifest.json'),'w') as f:json.dump(data,f,indent=2)
  cam=app.activeViewport.camera
  cam.cameraType=adsk.core.CameraTypes.OrthographicCameraType
- cam.eye=adsk.core.Point3D.create(18,-22,20)
+ cam.eye=adsk.core.Point3D.create(-18,-22,20)
  cam.target=adsk.core.Point3D.create(0.65,0,2.2)
  cam.upVector=adsk.core.Vector3D.create(0,1,0)
  cam.isSmoothTransition=False;cam.setExtents(20,15)
@@ -167,5 +160,10 @@ def run(_context: str):
 
 
 
+
+
+
+ # Explicit completion marker: some Fusion MCP versions suppress print output.
+ with open(os.path.join(OUT,'validation','build_complete.json'),'w') as f:json.dump({'version':'0.3','components':len(components),'bodies':len(manifest)},f)
 
 

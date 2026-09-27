@@ -1,39 +1,17 @@
-# Mechanical Switch
+# Mechanical Switch — v0.3
 
-A removable, adhesive-mounted servo actuator for the **small rounded rocker** on a square wall-switch faceplate.
+A removable servo actuator for the small rounded rocker on a square wall-switch plate. **Prototype: physical force, travel and fit are still unverified.**
 
-![Closed Fusion assembly](assets/fusion-assembly.png)
+![Open assembly](assets/fusion-assembly.png)
 
-**v0.2: direct drive, enclosed, horizontally adjustable.** The servo lies sideways. Its metal horn directly rocks one paddle with a replaceable TPU leaf insert. There is no face cam, plunger stack or external controller tray. The controller fits above the servo, inside the cover.
+The live Fusion file has **nine named components / twelve solids**, including six printed pieces, the servo with its stock metal horn, the ESP32 driver and the reference switch board. Adhesive solids, screw placeholders, alternate inserts, test coupon and component keepout clutter have been removed. The cover is retained but hidden by default; turn on component 06 to inspect it.
 
-This is a CAD revision awaiting a physical fit and actuation test. The photograph establishes the rocker shape; its exact projection, force and travel are not known. The model does not claim universal switch compatibility.
+The new **one-piece PETG rocking shoe** replaces the thin TPU leaves and their central screw attachment. A 6.2 mm horn web and broad 5 mm bridge take the load directly from the stock metal horn to two integral contact lands. No custom CNC part or printed spline is specified. Thin optional soft facing protects the switch surface; it is not a torque limiter.
 
-| Feature | Current design |
-|---|---|
-| Small-switch reference | Rounded 17 × 17 mm button, estimated from the supplied photograph |
-| Horizontal positioning | 52 mm total (±26 mm), approximately the middle 60% of an 86 mm plate |
-| Mounting | Six faceplate-only adhesive lands, 1,500 mm² nominal area |
-| Fastening | M3 screws form threads in 2.7 mm printed pilots; no nuts or inserts |
-| Drive | STS3215 → supplied metal horn → single rocking paddle → TPU leaf insert |
-| Housing | 89 × 92 mm cover; 53 mm projection from faceplate front including tape |
-| Overall footprint | 99 × 92 mm centered; up to 125 × 92 mm at the rightmost setting |
-| Printing | Seven assembled printed pieces; pilot coupon and two alternative-depth inserts also supplied |
+![Integral shoe and stock horn](assets/fusion-direct-drive.png)
 
-[Native Fusion file](cad/Mechanical_Switch_v02.f3d) · [STEP](cad/Mechanical_Switch_v02.step) · [Print files](stl) · [Assembly](docs/assembly.md) · [BOM](docs/bom.md) · [Mechanical details](docs/mechanics.md) · [Validation](docs/validation.md)
+[Fusion archive](cad/Mechanical_Switch_v03.f3d) · [STEP](cad/Mechanical_Switch_v03.step) · [Six print meshes](stl) · [Mechanical audit](docs/mechanics.md) · [Assembly](docs/assembly.md) · [BOM](docs/bom.md) · [Validation](docs/validation.md)
 
-![Direct servo-to-rocker mechanism, surrounding structure hidden](assets/fusion-direct-drive.png)
+The 86 mm plate and 17 × 17 × 6 mm rocker remain dimensional assumptions. The related Schneider S-Classic family is a plausible visual reference, not a confirmed identification of the pictured switch. Measure the actual switch before printing the final shoe or powering it.
 
-The yellow part is the direct horn paddle. The black contact insert has two flexible ends on **one part**. Rotation presses one side of the short rocker; opposite rotation presses the other. Neutral clears both sides. Two directions of force are needed to operate this type of rocker; two separate moving fingers are not needed.
-
-## Repository
-
-- `cad/`: editable Fusion archive, dimensioned Python builder and geometric verifier.
-- `stl/`: current individual print meshes in millimetres. `OPTION_` files replace the standard insert; do not fit all three.
-- `docs/`: mechanics, hardware, assembly, control notes and verification limits.
-- `assets/`: views captured from the actual Fusion model.
-- `validation/`: machine-readable checks and a repeatable STL checker.
-- `reference/`: provenance, dimensions and manufacturer links.
-
-The previous v0.1 is available in Git history. Its cam, springs, plungers, sidecar and meshes are superseded. The repository name is retained to preserve its URL; instructional-session material has been removed.
-
-
+The retained mounting frame provides ±26 mm static horizontal adjustment. Tape and screws remain required physical hardware even though their reference solids are removed. Source scripts recreate the geometry; Git history retains v0.2.
