@@ -155,7 +155,13 @@ def run(_context: str):
   part('REF_adhesive_'+str(i+1),box(x0,y0,0,x1,y1,1),'Yellow',False,group='fixed')
  data={'version':'0.2','units':'mm','axis':[1,0,0],'axis_origin_mm':[0,0,AXIS_Z],'horizontal_travel_mm':X_TRAVEL,'nominal_tape_area_mm2':1500,'assumptions':{'rocker_mm':[17,17,6],'servo_shaft_offset_mm':12.35,'pcb_component_height_mm':10.1},'parts':manifest}
  with open(os.path.join(OUT,'validation','build_manifest.json'),'w') as f:json.dump(data,f,indent=2)
- cam=app.activeViewport.camera;cam.viewOrientation=adsk.core.ViewOrientations.IsoTopRightViewOrientation;app.activeViewport.camera=cam;app.activeViewport.fit()
+ cam=app.activeViewport.camera
+ cam.cameraType=adsk.core.CameraTypes.OrthographicCameraType
+ cam.eye=adsk.core.Point3D.create(18,-22,20)
+ cam.target=adsk.core.Point3D.create(0.65,0,2.2)
+ cam.upVector=adsk.core.Vector3D.create(0,1,0)
+ cam.isSmoothTransition=False;cam.setExtents(20,15)
+ app.activeViewport.camera=cam;app.activeViewport.refresh();adsk.doEvents()
  app.activeViewport.saveAsImageFile(os.path.join(OUT,'assets','fusion-assembly.png'),1600,1200)
 
 

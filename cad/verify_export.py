@@ -60,15 +60,21 @@ def run(_context: str):
  # Internal overview from left side to expose the shaft and single contact insert.
  for b in r.bRepBodies:
   b.isLightBulbOn=group(b) not in ('optional','keepout') and not b.name.startswith(('06_','07_','REF_Waveshare'))
- cam=app.activeViewport.camera;cam.viewOrientation=adsk.core.ViewOrientations.IsoTopLeftViewOrientation;app.activeViewport.camera=cam;app.activeViewport.fit()
+ cam=app.activeViewport.camera;cam.viewOrientation=adsk.core.ViewOrientations.IsoTopLeftViewOrientation;app.activeViewport.camera=cam;app.activeViewport.refresh();adsk.doEvents();app.activeViewport.fit();app.activeViewport.refresh();adsk.doEvents()
  app.activeViewport.saveAsImageFile(os.path.join(OUT,'assets','fusion-mechanism.png'),1600,1200)
  # Closeup with non-essential structure hidden for explaining the direct drive.
  for b in r.bRepBodies:
   b.isLightBulbOn=group(b) in ('rotor','switch') or b.name.startswith(('REF_STS','REF_servo_output'))
- app.activeViewport.fit();app.activeViewport.saveAsImageFile(os.path.join(OUT,'assets','fusion-direct-drive.png'),1400,1100)
+ app.activeViewport.refresh();adsk.doEvents();app.activeViewport.fit();app.activeViewport.refresh();adsk.doEvents();app.activeViewport.saveAsImageFile(os.path.join(OUT,'assets','fusion-direct-drive.png'),1400,1100)
  # Export neutral assembly, with optional pads and reference component keepout hidden.
  for b in r.bRepBodies:b.isLightBulbOn=group(b) not in ('optional','keepout')
- cam=app.activeViewport.camera;cam.viewOrientation=adsk.core.ViewOrientations.IsoTopRightViewOrientation;app.activeViewport.camera=cam;app.activeViewport.fit()
+ cam=app.activeViewport.camera
+ cam.cameraType=adsk.core.CameraTypes.OrthographicCameraType
+ cam.eye=adsk.core.Point3D.create(18,-22,20)
+ cam.target=adsk.core.Point3D.create(0.65,0,2.2)
+ cam.upVector=adsk.core.Vector3D.create(0,1,0)
+ cam.isSmoothTransition=False;cam.setExtents(20,15)
+ app.activeViewport.camera=cam;app.activeViewport.refresh();adsk.doEvents()
  app.activeViewport.saveAsImageFile(os.path.join(OUT,'assets','fusion-assembly.png'),1600,1200)
  results={}
  results['f3d']=d.exportManager.execute(d.exportManager.createFusionArchiveExportOptions(os.path.join(OUT,'cad','Mechanical_Switch_v02.f3d')))
