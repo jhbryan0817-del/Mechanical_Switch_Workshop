@@ -1,181 +1,162 @@
+"""v0.2 direct rocker actuator. Dimensions mm; Z=0 faceplate front; X horizontal.
+Run in an empty Mechanical Switch design. Export in a second transaction.
+Named direct solids are editable; these constants/source drive dimensional edits.
+"""
 import adsk.core, adsk.fusion, os, json, math, struct
-OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Or set your output folder explicitly for MCP.
-# All engineering dimensions are mm; Fusion internal geometry uses cm.
+OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+REPLACE_EXISTING = False
 PILOT=2.7
+X_TRAVEL=52.0
+AXIS_Z=16.0
+PAD_CONTACT_Z=6.8
 
 def run(_context: str):
- app=adsk.core.Application.get(); d=adsk.fusion.Design.cast(app.activeProduct)
- assert app.activeDocument.name.startswith('Mechanical Switch'), 'Activate Mechanical Switch first'
- root=d.rootComponent
- assert root.occurrences.count==0 and root.bRepBodies.count==0, 'Run in an empty design only'
+ app=adsk.core.Application.get()
+ doc=next(doc for doc in app.documents if doc.name=='Mechanical Switch')
+ doc.activate();d=adsk.fusion.Design.cast(doc.products.itemByProductType('DesignProductType'));root=d.rootComponent
+ assert doc.name=='Mechanical Switch'
+ assert root.occurrences.count==0
+ if not REPLACE_EXISTING: assert root.bRepBodies.count==0, 'Archive existing design before replacement'
  d.designType=adsk.fusion.DesignTypes.DirectDesignType
+ if REPLACE_EXISTING:
+  for b in list(root.bRepBodies): b.deleteMe()
+  for sk in list(root.sketches): sk.deleteMe()
+  for pl in list(root.constructionPlanes): pl.deleteMe()
+ for sub in ('cad','stl','assets','validation'): os.makedirs(os.path.join(OUT,sub),exist_ok=True)
  tm=adsk.fusion.TemporaryBRepManager.get()
- P=lambda x,y,z:adsk.core.Point3D.create(x/10,y/10,(z+9)/10)
+ P=lambda x,y,z:adsk.core.Point3D.create(x/10,y/10,z/10)
  V=lambda x,y,z:adsk.core.Vector3D.create(x,y,z)
  def box(x0,y0,z0,x1,y1,z1):
+  assert x1>x0 and y1>y0 and z1>z0
   return tm.createBox(adsk.core.OrientedBoundingBox3D.create(P((x0+x1)/2,(y0+y1)/2,(z0+z1)/2),V(1,0,0),V(0,1,0),(x1-x0)/10,(y1-y0)/10,(z1-z0)/10))
- def cyl(x,y,z0,z1,r):
-  return tm.createCylinderOrCone(P(x,y,z0),r/10,P(x,y,z1),r/10)
+ def cyl(x,y,z0,z1,r): return tm.createCylinderOrCone(P(x,y,z0),r/10,P(x,y,z1),r/10)
+ def xcyl(x0,x1,y,z,r): return tm.createCylinderOrCone(P(x0,y,z),r/10,P(x1,y,z),r/10)
  def op(a,b,cut=False):
   assert tm.booleanOperation(a,b,adsk.fusion.BooleanTypes.DifferenceBooleanType if cut else adsk.fusion.BooleanTypes.UnionBooleanType)
   return a
+ def rr(x0,y0,z0,x1,y1,z1,r):
+  a=box(x0+r,y0,z0,x1-r,y1,z1);op(a,box(x0,y0+r,z0,x1,y1-r,z1))
+  for x in (x0+r,x1-r):
+   for y in (y0+r,y1-r): op(a,cyl(x,y,z0,z1,r))
+  return a
  def hole(a,x,y,z0,z1,diam):return op(a,cyl(x,y,z0,z1,diam/2),True)
- def slot(a,x0,y0,x1,y1,z0,z1,diam):
-  r=diam/2
-  if y0==y1:s=box(x0,y0-r,z0,x1,y0+r,z1)
-  else:s=box(x0-r,y0,z0,x0+r,y1,z1)
-  op(s,cyl(x0,y0,z0,z1,r));op(s,cyl(x1,y1,z0,z1,r))
-  return op(a,s,True)
+ def slot(a,x0,x1,y,z0,z1,diam):
+  s=box(x0,y-diam/2,z0,x1,y+diam/2,z1)
+  op(s,cyl(x0,y,z0,z1,diam/2));op(s,cyl(x1,y,z0,z1,diam/2));return op(a,s,True)
+ def xslot(a,x0,x1,y0,y1,z,diam):
+  s=box(x0,y0,z-diam/2,x1,y1,z+diam/2)
+  op(s,xcyl(x0,x1,y0,z,diam/2));op(s,xcyl(x0,x1,y1,z,diam/2));return op(a,s,True)
+ manifest=[]
  def meshout(b,name):
   calc=b.meshManager.createMeshCalculator();calc.surfaceTolerance=0.001
-  mesh=calc.calculate();pts=mesh.nodeCoordinates;ids=mesh.nodeIndices
-  # Translate each export to a convenient origin; mm units, no scale guessing.
-  bb=b.boundingBox;ox=bb.minPoint.x;oy=bb.minPoint.y;oz=bb.minPoint.z
+  mesh=calc.calculate();pts=mesh.nodeCoordinates;ids=mesh.nodeIndices;bb=b.boundingBox
+  ox=bb.minPoint.x;oy=bb.minPoint.y;oz=bb.minPoint.z
   with open(os.path.join(OUT,'stl',name+'.stl'),'wb') as f:
-   f.write(b'Mechanical Switch Workshop; millimetres'.ljust(80,b' '));f.write(struct.pack('<I',mesh.triangleCount))
+   f.write(b'Mechanical Switch v0.2; units mm'.ljust(80,b' '));f.write(struct.pack('<I',mesh.triangleCount))
    for i in range(0,len(ids),3):
-    p=[pts[ids[i+j]] for j in range(3)];u=p[0].vectorTo(p[1]);v=p[0].vectorTo(p[2]);n=u.crossProduct(v);n.normalize()
-    vals=[n.x,n.y,n.z]+[q for pp in p for q in [(pp.x-ox)*10,(pp.y-oy)*10,(pp.z-oz)*10]]
+    p=[pts[ids[i+j]] for j in range(3)];n=p[0].vectorTo(p[1]).crossProduct(p[0].vectorTo(p[2]));n.normalize()
+    vals=[n.x,n.y,n.z]+[v for pp in p for v in ((pp.x-ox)*10,(pp.y-oy)*10,(pp.z-oz)*10)]
     f.write(struct.pack('<12fH',*vals,0))
- manifest=[]
- def part(name,body,printable=True):
-  c=root
-  b=c.bRepBodies.add(body);b.name=name
-  color='White' if name.startswith('REF_87') else ('Black' if name.startswith('REF_STS') or name.startswith('08') else ('Green' if name.startswith('REF_Waveshare') else ('Yellow' if name.startswith(('06','07','11','REF_tape')) else ('Blue' if name.startswith(('01','09','10','12')) else 'Gray'))))
-  b.appearance=app.materialLibraries.itemByName('Fusion Appearance Library').appearances.itemByName('Plastic - Matte ('+color+')')
-  bb=b.boundingBox
-  manifest.append({'name':name,'printable':printable,'volume_mm3':b.volume*1000,'bounds_mm':[[p.x*10,p.y*10,p.z*10] for p in [bb.minPoint,bb.maxPoint]],'solid':b.isSolid})
-  if printable: meshout(b,name)
-  return c,b
- # Faceplate-bonding bezel. Wall z=0, nominal plate front z=10; rear lands z=11.
- a=box(-49,-49,2,49,49,6);op(a,box(-34.5,-31.5,1,34.5,31.5,7),True)
- # Screw-cap reliefs open into the main window.
- for x in [-39,39]:op(a,box(x-6,-13,1,x+6,13,7),True)
- for y in [-40,40]:
-  for x in [-44,44]:op(a,box(x-5,y-5,6,x+5,y+5,11))
-  op(a,box(-49,y-5,11,49,y+5,15))
-  slot(a,-28.5,y,28.5,y,10.9,15.1,3.4)
- # Sidecar pilots are blind from front; wall-side tape plane stays closed.
- for x in [-45,45]:
-  for y in [-16,16]:
-   op(a,cyl(x,y,6,11,4));hole(a,x,y,2.5,11.2,PILOT)
- part('01_faceplate_tape_frame',a)
- # Bridge uses two M3 bolts and sliding M3 nuts under raised rails.
- a=box(-32,-45,15.3,32,45,19.3);op(a,box(-20,-35,15,20,35,20),True)
- for y in [-40,40]:hole(a,0,y,15,20,3.4)
- for x in [-26,26]:
-  for y in [-20,20]:slot(a,x,y-12,x,y+12,15,20,3.4)
- part('02_xy_bridge',a)
- # Cassette lower guide; four M3 bolt positions match the bridge's Y slots.
- a=box(-32,-37,19.6,32,37,23.6)
- for x in [-26,26]:
-  for y in [-20,20]:hole(a,x,y,19,24,3.4)
- for y in [-11,11]:hole(a,0,y,19,24,5.3)
- # Four load-bearing pillars, clear of all adjustment screw heads.
- for x in [-24,24]:
-  for y in [-31,31]:
-   op(a,box(x-4,y-4,23.6,x+4,y+4,49.0));hole(a,x,y,38,49.2,PILOT)
- part('03_lower_guide_and_pillars',a)
- # Upper cup guide attaches halfway up pillars using a drop-in fit and M3 side-free vertical screws.
- # A removable plate seats on four dedicated spacer sleeves around the pillars.
- a=box(-28,-35,29,28,35,32)
- for x in [-24,24]:
-  for y in [-31,31]:op(a,box(x-4.3,y-4.3,28,x+4.3,y+4.3,33),True)
- for y in [-11,11]:hole(a,0,y,28,33,13.5)
- # Open sides relieve guide drag and allow spring inspection.
- op(a,box(-17,-6,28,17,6,33),True)
- part('04_follower_guide',a)
- # Four separate sleeves support guide at z29; top cradle retains it through pillars.
- for idx,(x,y) in enumerate([(-24,-31),(24,-31),(-24,31),(24,31)]):
-  a=box(x-6,y-6,23.6,x+6,y+6,29);op(a,box(x-4.2,y-4.2,23,x+4.2,y+4.2,30),True)
-  part('05_guide_spacer_'+str(idx+1),a)
-  a=box(x-6,y-6,32,x+6,y+6,49.3);op(a,box(x-4.2,y-4.2,31,x+4.2,y+4.2,50),True)
-  part('05b_guide_retainer_'+str(idx+1),a)
- for idx,y in enumerate([-11,11]):
-  # Stem flange is inside the cup. A spring above it transmits cam load.
-  a=cyl(0,y,6.8,27.6,2.4);op(a,cyl(0,y,27.6,29.6,4.8));hole(a,0,y,6.7,22.0,2.7)
-  groove=cyl(0,y,18.5,19.4,2.5);op(groove,cyl(0,y,18.4,19.5,1.9),True);op(a,groove,True)
-  part('06_contact_stem_'+str(idx+1),a)
-  clip=cyl(0,y,18.5,19.3,4.5);hole(clip,0,y,18.4,19.4,3.9);op(clip,box(-1.65,y,18.4,1.65,y+5,19.4),True)
-  part('06b_stem_retaining_clip_'+str(idx+1),clip)
-  # Cup roof z36.6 gives 7mm installed length for primary spring.
-  a=cyl(0,y,28.6,38.6,6.5);hole(a,0,y,28.5,36.6,10.2)
-  op(a,cyl(0,y,38.6,44,1.5))
-  part('07_spring_cup_'+str(idx+1),a)
-  # TPU flat pad has a blind M3 head pocket; bond onto screw head after adjustment.
-  a=box(-5,y-3.5,2.8,5,y+3.5,6.3);hole(a,0,y,4.3,6.4,5.8)
-  part('08_tpu_shoe_'+str(idx+1),a)
- # Servo cradle: measured envelope only, output-axis offset is a configurable assumption.
- a=box(-32,-37,49.3,32,37,52.3);hole(a,0,0,49,53,23)
- for x in [-24,24]:
-  for y in [-31,31]:hole(a,x,y,49,53,3.4)
- # Open cradle, no unverified manufacturer mounting-ear holes.
- for x in [-15.8,15.8]:op(a,box(x-2,-14,52.3,x+2,34,87.6))
- op(a,box(-17.8,34,52.3,17.8,37,87.6))
- for x in [-15.8,15.8]:
-  for y in [-9,29]:hole(a,x,y,77,88,PILOT)
- for deg in [-55,55]:
-  t=math.radians(deg);op(a,cyl(23*math.cos(t),23*math.sin(t),44,49.3,2))
- part('09_servo_cradle',a)
- a=box(-20,-14,87.9,20,37,91.9)
- op(a,box(-10,-4,87,10,24,93),True)
- for x in [-15.8,15.8]:
-  for y in [-9,29]:hole(a,x,y,87,93,3.4)
- part('10_servo_retaining_cap',a)
- # Cam uses four holes on an assumed 14mm bolt circle: verify physical disc first.
- a=cyl(0,0,44,47,19);op(a,box(18,-1.5,44,24,1.5,47));hole(a,0,0,43,48,7)
- for deg in [0,90,180,270]:
-  t=math.radians(deg);x,y=7*math.cos(t),7*math.sin(t)
-  hole(a,x,y,43,48,3.4)
- # Smooth sampled lobe profile generated as lofted radial rectangular stations in a separate component.
- camc,camb=part('11_face_cam_blank',a,False)
- # Build each raised lobe as loft through radial plane sketches; flat top plus cosine ramps.
- for center in [-50,50]:
-  profiles=adsk.core.ObjectCollection.create()
-  for deg in range(center-28,center+29,2):
-   rel=abs(deg-center)
-   h=4 if rel<=6 else (0.05+3.95*(1+math.cos(math.pi*(rel-6)/22))/2)
-   t=math.radians(deg)
-   # vertical radial plane through cam axis, local sketch coords found with modelToSketchSpace.
-   planein=camc.constructionPlanes.createInput()
-   planein.setByPlane(adsk.core.Plane.create(P(0,0,44),V(-math.sin(t),math.cos(t),0)))
-   plane=camc.constructionPlanes.add(planein)
-   sk=camc.sketches.add(plane)
-   pts=[P(8*math.cos(t),8*math.sin(t),44.05),P(14*math.cos(t),14*math.sin(t),44.05),P(14*math.cos(t),14*math.sin(t),44-h),P(8*math.cos(t),8*math.sin(t),44-h)]
-   sp=[sk.modelToSketchSpace(p) for p in pts]
-   for j in range(4):sk.sketchCurves.sketchLines.addByTwoPoints(sp[j],sp[(j+1)%4])
-   profiles.add(sk.profiles.item(0));sk.isVisible=False;plane.isLightBulbOn=False
-  li=camc.features.loftFeatures.createInput(adsk.fusion.FeatureOperations.JoinFeatureOperation)
-  for p in profiles:li.loftSections.add(p)
-  li.isSolid=True;camc.features.loftFeatures.add(li)
- camb.name='11_face_cam_4mm'
- meshout(camb,camb.name)
- # Open sidecar: accessible connectors and antenna, avoids guessed connector apertures.
- a=box(56,-39,2,97,39,5)
- for x in [65,88]:
-  for y in [-29,29]:op(a,cyl(x,y,4,7,3.2));op(a,cyl(x,y,7,9,1.25))
- # Reversible mounting strap integrated into tray; two front-access bolts to frame.
- for y in [-16,16]:
-  op(a,box(40,y-4,11.3,60,y+4,14.3));op(a,box(56,y-4,5,60,y+4,14.3));hole(a,45,y,11,15,3.4)
- # Zip-tie slots for PCB retention and cable strain relief, clear of PCB underside.
- for y in [-34,34]:
-  for x in [60,93]:op(a,box(x-1.5,y-2,0,x+1.5,y+2,5),True)
- part('12_open_controller_sidecar',a)
- a=box(-24,-10,0,24,10,10)
- for x,diam in [(-18,2.5),(-6,2.6),(6,2.7),(18,2.8)]:hole(a,x,0,1,11,diam)
- c,b=part('13_m3_pilot_coupon',a);b.isLightBulbOn=False
- # Clearly named reference envelopes, not printable parts.
- c,b=part('REF_87mm_faceplate_assumed_10mm_projection',box(-43.5,-43.5,-9,43.5,43.5,1),False)
- c,b=part('REF_STS3215_envelope_axis_offset_unverified',box(-12.35,-12.35,52.3,12.35,32.85,87.3),False)
- c,b=part('REF_Waveshare_PCB_envelope',box(61.5,-32.5,7,91.5,32.5,8.6),False)
- for i,(x0,y0,x1,y1) in enumerate([(-35,-42.5,35,-32.5),(-35,32.5,35,42.5),(-42.5,-30,-34.5,-16),(-42.5,16,-34.5,30),(34.5,-30,42.5,-16),(34.5,16,42.5,30)]):
-  part('REF_tape_land_'+str(i+1),box(x0,y0,1,x1,y1,2),False)
- # Save machine-readable inventory and native exchange artifacts.
- app.activeViewport.fit();cam=app.activeViewport.camera;cam.viewOrientation=adsk.core.ViewOrientations.IsoTopRightViewOrientation;app.activeViewport.camera=cam;app.activeViewport.fit()
+ def part(name,body,color='Gray',printable=True,visible=True,group='carriage'):
+  b=root.bRepBodies.add(body);b.name=name
+  assert b.isSolid and b.lumps.count==1, name+' must be one connected solid'
+  appearance=app.materialLibraries.itemByName('Fusion Appearance Library').appearances.itemByName('Plastic - Matte ('+color+')')
+  if appearance:b.appearance=appearance
+  b.isLightBulbOn=visible;b.attributes.add('MechanicalSwitch','group',group);bb=b.boundingBox
+  manifest.append({'name':name,'printable':printable,'group':group,'visible':visible,'volume_mm3':b.volume*1000,'bounds_mm':[[p.x*10,p.y*10,p.z*10] for p in (bb.minPoint,bb.maxPoint)]})
+  if printable:meshout(b,name)
+  return b
+ # Fixed base. Only the six tape lands bond to faceplate plastic.
+ a=rr(-43,-43,1,43,43,2,4);op(a,rr(-37,-29,0.9,37,29,2.1,3),True)
+ for x in (-31,31):hole(a,x,0,0.9,2.1,12)
+ for y in (-39,39):
+  op(a,rr(-38,y-3,1,38,y+3,11,2));hole(a,0,y,3,11.1,PILOT)
+ part('01_adhesive_base',a,'White',group='fixed')
+ # Internal carriage, sliding over the base on two front-access slot screws.
+ a=box(-30,-43,11.3,48,-35,14.3);op(a,box(-30,35,11.3,48,43,14.3))
+ for x in (-30,47.4):op(a,box(x,-42,11.3,x+2,42,14.3))
+ for y in (-39,39):slot(a,-X_TRAVEL/2,X_TRAVEL/2,y,11.2,14.4,3.4)
+ op(a,box(10,-15,2.3,49,34,3.3))
+ op(a,box(47.4,-15,3.3,49,42,28.7))
+ op(a,box(10,-15,3.3,49,-13,28.7))
+ op(a,box(10,33.4,3.3,49,34.8,28.7))
+ for x,y in ((16,-18),(43,37)):
+  op(a,cyl(x,y,11.3,28.7,3.6))
+  if y<0:op(a,box(12,-18,11.3,20,-14,15.3))
+  hole(a,x,y,20.7,28.8,PILOT)
+ for x,y in ((-25,-25),(-25,25),(44,-25),(50,25)):
+  if x==50:
+   post=cyl(x,y,11.3,33,3.1);op(post,box(40,y-4,11.2,47.4,y+4,28.7),True);op(a,post)
+  elif x<0:op(a,box(-30,y-4,11.3,-21,y+4,33))
+  else:op(a,box(41,y-3,11.3,48,y+3,33))
+  hole(a,x,y,25,33.1,PILOT)
+ for y0,y1 in ((-42.4,-35.6),(35.6,42.4)):op(a,box(-31,y0,2.2,50,y1,11.2),True)
+ part('02_sliding_servo_chassis',a)
+ # Servo retention cap: foam shims take up the body clearance.
+ a=box(12,-21.5,29,47,40.5,31);op(a,box(17,-10,28.9,42,29,31.1),True)
+ for x,y in ((16,-18),(43,37)):hole(a,x,y,28.9,31.1,3.4)
+ op(a,box(46.5,21.5,28.9,54,28.5,31.1),True)
+ part('03_servo_clamp',a)
+ # Direct horn paddle. Adjustable two-hole bolt circle 12-16 mm; no printed spline.
+ a=box(3.5,-11,12,6.5,11,26);op(a,xcyl(3.4,6.6,0,AXIS_Z,3.5),True)
+ for sign in (-1,1):
+  ys=sorted((sign*6,sign*8));xslot(a,3.4,6.6,ys[0],ys[1],AXIS_Z,3.4)
+ op(a,box(-3,-3,14,6.5,3,17));hole(a,0,0,13.9,17.1,3.4)
+ part('04_direct_rocking_paddle',a,'Yellow',group='rotor')
+ # One removable TPU leaf insert. Two ends, one part, one direct rocking motion.
+ def insert(z):
+  a=box(-3,-2,z+2.4,3,2,14);op(a,box(-3,-8.5,z+2.2,3,8.5,z+3.8))
+  for y in (-7.5,7.5):op(a,rr(-3,y-1,z,3,y+1,z+3.8,0.7))
+  hole(a,0,0,10.5,14.1,2.5);return a
+ part('05_tpu_leaf_insert_standard',insert(PAD_CONTACT_Z),'Black',group='rotor')
+ for name,z in (('long',4.8),('short',8.8)):
+  part('OPTION_tpu_insert_'+name,insert(z),'Black',visible=False,group='optional')
+ # Removable controller shelf above the servo. Pins fit board holes, ties retain.
+ a=rr(-29,-29,33.3,54,29,35.3,3);op(a,rr(-14,-7,33.2,35,7,35.4,2),True)
+ op(a,rr(-19,17,33.2,34,23,35.4,2),True)
+ for x,y in ((-25,-25),(-25,25),(44,-25),(50,25)):hole(a,x,y,33.2,35.4,3.4)
+ for x in (-16.5,41.5):
+  for y in (-11.5,11.5):
+   op(a,cyl(x,y,35.3,37.3,2.7));op(a,cyl(x,y,37.3,39.3,1.2))
+   slot(a,x-2,x+2,y+(4.5 if y>0 else -4.5),33.2,35.4,1.8)
+ part('06_controller_shelf',a)
+ # Rounded enclosure, two millimetre walls, broad side connector access.
+ a=rr(-33,-46,2.3,56,46,53,5);op(a,rr(-31,-44,2.2,54,44,51,3),True)
+ for y0,y1 in ((-42.4,-35.6),(35.6,42.4)):op(a,box(-34,y0,2.2,57,y1,11.6),True)
+ for x0,x1 in ((-34,-30),(53,57)):op(a,box(x0,-18,36,x1,18,49),True)
+ for x,y in ((-25,-25),(-25,25),(44,-25),(50,25)):
+  op(a,cyl(x,y,35.6,51.2,3.5));hole(a,x,y,35.5,53.1,3.4);hole(a,x,y,50.5,53.1,6.2)
+ for y in (-7.5,-2.5,2.5,7.5):slot(a,-12,29,y,50.9,53.1,1.8)
+ part('07_rounded_enclosure',a,'White')
+ a=rr(-23,-9,0,23,9,9,2)
+ for x,diam in ((-16.5,2.5),(-5.5,2.6),(5.5,2.7),(16.5,2.8)):hole(a,x,0,1,9.1,diam)
+ part('08_m3_pilot_coupon',a,visible=False,group='optional')
+ # Fixed X-lock hardware envelopes (thread core, washer and head).
+ for i,y in enumerate((-39,39)):
+  a=cyl(0,y,4.8,14.8,1.3);op(a,cyl(0,y,14.3,14.8,3.5));op(a,cyl(0,y,14.8,17.8,2.75))
+  part('REF_X_lock_screw_and_washer_'+str(i+1),a,'Gray',False,group='fixed')
+ # Simplified references, never print. Small rocker size comes from photo ratio.
+ part('REF_faceplate_86mm',rr(-43,-43,-9,43,43,0,3),'White',False,group='fixed')
+ part('REF_short_rounded_rocker_17mm_assumption',rr(-8.5,-8.5,0,8.5,8.5,6,4),'White',False,group='switch')
+ part('REF_STS3215_body_45p2x24p7x35',box(12,-12.35,3.65,47,32.85,28.35),'Black',False)
+ part('REF_servo_output_axis',xcyl(8.9,12,0,AXIS_Z,3),'Gray',False)
+ a=xcyl(6.7,8.7,0,AXIS_Z,9);op(a,xcyl(6.6,8.8,0,AXIS_Z,1.6),True)
+ for y in (-7,7):op(a,xcyl(6.6,8.8,y,AXIS_Z,1.5),True)
+ part('REF_metal_horn_verify_hardware',a,'Gray',False,group='rotor')
+ a=box(-20,-15,37.3,45,15,38.9)
+ for x in (-16.5,41.5):
+  for y in (-11.5,11.5):hole(a,x,y,37.2,39,2.75)
+ part('REF_Waveshare_PCB_65x30',a,'Green',False)
+ a=box(-20,-15,38.9,45,15,49)
+ for x in (-16.5,41.5):
+  for y in (-11.5,11.5):hole(a,x,y,38.8,49.1,2.75)
+ part('REF_board_component_keepout_unmeasured',a,'Green',False,False,group='keepout')
+ for i,(x0,y0,x1,y1) in enumerate(((-35,-40,35,-31),(-35,31,35,40),(-42,-27,-38,-12),(-42,12,-38,27),(38,-27,42,-12),(38,12,42,27))):
+  part('REF_adhesive_'+str(i+1),box(x0,y0,0,x1,y1,1),'Yellow',False,group='fixed')
+ data={'version':'0.2','units':'mm','axis':[1,0,0],'axis_origin_mm':[0,0,AXIS_Z],'horizontal_travel_mm':X_TRAVEL,'nominal_tape_area_mm2':1500,'assumptions':{'rocker_mm':[17,17,6],'servo_shaft_offset_mm':12.35,'pcb_component_height_mm':10.1},'parts':manifest}
+ with open(os.path.join(OUT,'validation','build_manifest.json'),'w') as f:json.dump(data,f,indent=2)
+ cam=app.activeViewport.camera;cam.viewOrientation=adsk.core.ViewOrientations.IsoTopRightViewOrientation;app.activeViewport.camera=cam;app.activeViewport.fit()
  app.activeViewport.saveAsImageFile(os.path.join(OUT,'assets','fusion-assembly.png'),1600,1200)
-
-
-
 
 
 

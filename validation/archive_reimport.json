@@ -1,5 +1,157 @@
 {
-  "reimported": true,
-  "body_count": 34,
-  "solid_count": 34
+  "success": true,
+  "body_count": 25,
+  "volume_tolerance_mm3": 0.01,
+  "inventory": [
+    {
+      "name": "01_adhesive_base",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 11152.576977854913
+    },
+    {
+      "name": "02_sliding_servo_chassis",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 15987.14666105614
+    },
+    {
+      "name": "03_servo_clamp",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 2346.683188924503
+    },
+    {
+      "name": "04_direct_rocking_paddle",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 856.9599311859308
+    },
+    {
+      "name": "05_tpu_leaf_insert_standard",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 278.5686889368197
+    },
+    {
+      "name": "OPTION_tpu_insert_long",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 326.5686889368196
+    },
+    {
+      "name": "OPTION_tpu_insert_short",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 233.02305819743694
+    },
+    {
+      "name": "06_controller_shelf",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 7687.100873687646
+    },
+    {
+      "name": "07_rounded_enclosure",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 48680.32078584844
+    },
+    {
+      "name": "08_m3_pilot_coupon",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 7244.288500985192
+    },
+    {
+      "name": "REF_X_lock_screw_and_washer_1",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 140.9554083849339
+    },
+    {
+      "name": "REF_X_lock_screw_and_washer_2",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 140.95540838493395
+    },
+    {
+      "name": "REF_faceplate_86mm",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 66494.46900494077
+    },
+    {
+      "name": "REF_short_rounded_rocker_17mm_assumption",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 1651.5928947446203
+    },
+    {
+      "name": "REF_STS3215_body_45p2x24p7x35",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 39075.4
+    },
+    {
+      "name": "REF_servo_output_axis",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 87.650435035159
+    },
+    {
+      "name": "REF_metal_horn_verify_hardware",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 464.5787216128779
+    },
+    {
+      "name": "REF_Waveshare_PCB_65x30",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 3081.986728891565
+    },
+    {
+      "name": "REF_board_component_keepout_unmeasured",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 19455.04122612798
+    },
+    {
+      "name": "REF_adhesive_1",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 630.0000000000003
+    },
+    {
+      "name": "REF_adhesive_2",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 630.0000000000003
+    },
+    {
+      "name": "REF_adhesive_3",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 60.00000000000006
+    },
+    {
+      "name": "REF_adhesive_4",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 60.00000000000006
+    },
+    {
+      "name": "REF_adhesive_5",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 60.00000000000006
+    },
+    {
+      "name": "REF_adhesive_6",
+      "solid": true,
+      "lumps": 1,
+      "volume_mm3": 60.00000000000006
+    }
+  ]
 }

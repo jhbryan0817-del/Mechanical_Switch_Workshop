@@ -1,47 +1,32 @@
 # Parts and hardware
 
-Print one of every file in `stl/`. Duplicate stems, cups, shoes, clips and sleeves are already separate files. There are 25 files, including the coupon; 24 printed pieces enter the assembly.
+Seven printed pieces enter the assembly. Print the numbered 01–07 files, using only one contact insert. `08_m3_pilot_coupon.stl` is a test piece. The two `OPTION_` inserts replace part 05.
 
-| Part / group | Quantity | Material | Role |
-|---|---:|---|---|
-| 01 tape bezel | 1 | PETG | Bonding lands and X rails |
-| 02 XY bridge | 1 | PETG | Horizontal carriage, Y adjustment |
-| 03 lower guide and pillars | 1 | PETG | Stem guide and structural frame |
-| 04 follower guide | 1 | PETG | Guides the cups |
-| 05 lower sleeves | 4 | PETG | Support guide |
-| 05b upper sleeves | 4 | PETG | Retain guide |
-| 06 contact stems | 2 | PETG | Sliding switch contacts |
-| 06b retaining clips | 2 | PETG | Light axial retainers; print spares |
-| 07 spring cups | 2 | PETG or nylon | Cam followers and spring seats |
-| 08 shoes | 2 | 95A TPU | Soft switch contact |
-| 09 servo cradle | 1 | PETG | Servo location and stop pins |
-| 10 retaining cap | 1 | PETG | Servo retention |
-| 11 face cam | 1 | PETG or nylon | Two-lobe drive |
-| 12 controller tray | 1 | PETG | Open electronics mount |
-| 13 coupon | 1 | PETG | Pilot-hole selection |
-
-## Purchased items
-
-| Item | Quantity | Selection / fit check |
+| Printed part | Quantity | Material |
 |---|---:|---|
-| FEETECH STS3215, 7.4 V variant | 1 | Confirm label; body, axis and cable clearance |
-| Supplied metal 25T output disc and centre screw | 1 set | Centre screw per manufacturer, nominal M3 × 6; verify actual hardware |
-| Waveshare Servo Driver with ESP32, SKU 21593 | 1 | 65 × 30 mm PCB; 58 × 23 mm mounting pattern |
-| M3 × 12 machine screws | 8 | 2 X locks, 4 Y locks, 2 sidecar screws |
-| M3 × 14 machine screws | 8 | 4 cradle-to-pillar, 4 cap; verify 8–10 mm engagement after washers |
-| M3 × 12 contact adjuster screws | 2 | At least 8 mm engagement in stems |
-| M3 cam-to-disc screws | 4 | Length depends on your metal horn; measure before buying |
-| M3 hex nuts | 6 | X/Y locks; do not use nyloc where clearance is insufficient |
-| M3 flat washers | Approximately 22 | Heads, slot clamps and nut-bearing faces; check stack heights |
-| Primary compression springs | 2 | Characterize to `mechanics.md`; do not substitute by appearance |
-| Return compression springs | 2 | Lighter than primary springs; verify coil-bind margin |
-| Acrylic foam double-sided tape | Six cuts | Nominal 1 mm thick, compatible with actual plastic; total 1,848 mm² |
-| Insulating foam shims | As needed | Servo fit, PCB edge protection |
-| Small cable ties | 4–6 | PCB retention and external strain relief |
-| Compatible 3-wire ST-series bus cable | 1 | Confirm pin order and connector keying |
-| Regulated 7.4 V DC supply | 1 | ≥3 A; 5 A headroom is a design recommendation, not a tested requirement |
-| DC lead, strain relief and inline protection | As appropriate | Match board polarity and cable/supply ratings |
+| Adhesive base | 1 | PETG |
+| Sliding servo chassis | 1 | PETG |
+| Servo clamp | 1 | PETG |
+| Direct rocking paddle | 1 | PETG or nylon |
+| TPU leaf insert, selected depth | 1 | TPU 95A starting choice |
+| Controller shelf | 1 | PETG |
+| Rounded enclosure | 1 | PETG |
 
-M3 lengths are starting assembly selections, not permission to bottom screws. Measure stack thickness and available depth. The coupon holes are 2.5, 2.6, 2.7 and 2.8 mm, ordered left-to-right in the source model; mark the printed coupon. Production pilots currently use 2.7 mm. If your coupon selects another diameter, revise the CAD before printing the main parts.
+| Purchased item | Quantity | Notes |
+|---|---:|---|
+| FEETECH STS3215, existing 7.4 V variant | 1 | Check physical body, shaft and cable envelope |
+| Supplied metal horn and centre screw | 1 set | Retain the metal spline interface |
+| Horn-to-paddle screws | 2 | Match actual horn threads; slots accept M3 clearance, length measured from actual stack |
+| Waveshare Servo Driver with ESP32, SKU 21593 | 1 | Existing controller, enclosed above servo |
+| M3 × 10 screws | 4 | Two horizontal locks and two servo clamp screws; low-profile heads ≤5.5 mm diameter and ≤2 mm high |
+| M3 × 25 screws | 4 | Through recessed cover, shelf and into chassis pilots; low-profile heads ≤6 mm diameter and ≤2 mm high |
+| M3 × 6 screw | 1 | Contact insert; 3 mm paddle plus approximately 3 mm TPU engagement |
+| M3 washers | 2 | Horizontal slot clamps; verify engagement with selected washer thickness |
+| Small cable ties | 4 plus cable restraint | Through shelf slots; protect component-free PCB edges |
+| Thin foam shims | As needed | Approximately 0.3–0.7 mm body fit clearances; do not crush servo |
+| Double-sided acrylic foam tape | Six cuts | Nominal 1 mm; faceplate-compatible; 1,500 mm² total |
+| Compatible ST-series bus lead, low-voltage supply and lead | 1 set | Match actual servo voltage and pinout; see wiring notes |
 
-Tools: calipers, small screwdrivers/hex keys, deburring tools, fine abrasive, spring scale or force gauge, multimeter, 3D printer, and preferably a current-limited bench supply. No tools for opening a mains accessory are needed.
+Main printed M3 pilots are 2.7 mm. The TPU pilot is 2.5 mm. The coupon has 2.5, 2.6, 2.7 and 2.8 mm holes from left to right in the model. Hand-form threads using the best coupon result; back out periodically to clear material. Do not overtighten, bottom screws or drive them with an impact tool. No heat-set inserts or nuts are required.
+
+Do not substitute tall socket-cap heads for the specified low-profile clamp/cover heads: the controller shelf sits above the clamp, and the cover recesses are 2.5 mm deep. Metal horn screws remain metal-thread fasteners; PCB locating pins are the deliberate exception to M3 construction. All screw lengths are nominal stack selections to verify on the actual print.

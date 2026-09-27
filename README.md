@@ -1,78 +1,39 @@
-![Mechanical Switch Workshop — build an external robotic finger](assets/cover.png)
+# Mechanical Switch
 
-# Mechanical Switch Workshop
+A removable, adhesive-mounted servo actuator for the **small rounded rocker** on a square wall-switch faceplate.
 
-**Print a mechanism. Assemble a robot. Explore what makes a switch click.**
+![Closed Fusion assembly](assets/fusion-assembly.png)
 
-A hands-on mechanical engineering workshop built around a removable external actuator for 86–87 mm wall-switch faceplates. A bus servo turns a two-lobe face cam; compliant plungers press either end of the original rocker, then release it.
+**v0.2: direct drive, enclosed, horizontally adjustable.** The servo lies sideways. Its metal horn directly rocks one paddle with a replaceable TPU leaf insert. There is no face cam, plunger stack or external controller tray. The controller fits above the servo, inside the cover.
 
-**v0.1 · Mechanical bench prototype · Autodesk Fusion · PETG + TPU**
+This is a CAD revision awaiting a physical fit and actuation test. The photograph establishes the rocker shape; its exact projection, force and travel are not known. The model does not claim universal switch compatibility.
 
-[Start the workshop](docs/workshop.md) · [Print & assemble](docs/assembly.md) · [Parts & hardware](docs/bom.md) · [Design decisions](docs/mechanics.md) · [Validation](docs/validation.md)
-
-> **Build status:** CAD and print meshes are available. This design has not been physically printed, fitted, load-tested, or powered. Start with the fit gauge and manual tests. The servo interface and spring selection are measurement gates before powered use.
-
-## The first iteration
-
-| Feature | v0.1 implementation |
+| Feature | Current design |
 |---|---|
-| Mounting | Tape on the **plastic faceplate only**; no wall bonding or faceplate screws |
-| Adhesive lands | Two 70 × 10 mm strips + four 8 × 14 mm strips; **1,848 mm² nominal** |
-| Adjustment | 57 mm horizontal travel; ±12 mm vertical trim, locked with M3 bolts and nuts |
-| Mechanism | 38 mm face cam, 4 mm lift, 22 mm plunger spacing |
-| Compliance | Separate cam follower cups and contact stems; force passes through compression springs |
-| Electronics | STS3215 reference envelope and an accessible Waveshare controller tray |
-| Fabrication | 25 individual STL files, including duplicates and the pilot-hole coupon |
-| Editable source | Named solid bodies in a native Fusion archive, plus a reproducible Python builder |
+| Small-switch reference | Rounded 17 × 17 mm button, estimated from the supplied photograph |
+| Horizontal positioning | 52 mm total (±26 mm), approximately the middle 60% of an 86 mm plate |
+| Mounting | Six faceplate-only adhesive lands, 1,500 mm² nominal area |
+| Fastening | M3 screws form threads in 2.7 mm printed pilots; no nuts or inserts |
+| Drive | STS3215 → supplied metal horn → single rocking paddle → TPU leaf insert |
+| Housing | 89 × 92 mm cover; 53 mm projection from faceplate front including tape |
+| Overall footprint | 99 × 92 mm centered; up to 125 × 92 mm at the rightmost setting |
+| Printing | Seven assembled printed pieces; pilot coupon and two alternative-depth inserts also supplied |
 
-![Actual Fusion model, assembled](assets/fusion-assembly.png)
+[Native Fusion file](cad/Mechanical_Switch_v02.f3d) · [STEP](cad/Mechanical_Switch_v02.step) · [Print files](stl) · [Assembly](docs/assembly.md) · [BOM](docs/bom.md) · [Mechanical details](docs/mechanics.md) · [Validation](docs/validation.md)
 
-*Actual CAD view. Servo, PCB, faceplate and tape bodies are simplified references, not supplied components. Screws and springs are specified in the BOM rather than modeled.*
+![Direct servo-to-rocker mechanism, surrounding structure hidden](assets/fusion-direct-drive.png)
 
-<details>
-<summary><strong>Look inside the mechanism</strong></summary>
+The yellow part is the direct horn paddle. The black contact insert has two flexible ends on **one part**. Rotation presses one side of the short rocker; opposite rotation presses the other. Neutral clears both sides. Two directions of force are needed to operate this type of rocker; two separate moving fingers are not needed.
 
-![Cam and follower assembly with servo cradle hidden](assets/fusion-mechanism.png)
+## Repository
 
-The gold cam drives two separate spring cups. The cradle is hidden in this view to expose the mechanism.
+- `cad/`: editable Fusion archive, dimensioned Python builder and geometric verifier.
+- `stl/`: current individual print meshes in millimetres. `OPTION_` files replace the standard insert; do not fit all three.
+- `docs/`: mechanics, hardware, assembly, control notes and verification limits.
+- `assets/`: views captured from the actual Fusion model.
+- `validation/`: machine-readable checks and a repeatable STL checker.
+- `reference/`: provenance, dimensions and manufacturer links.
 
-</details>
-
-## Download and build
-
-1. Open [Mechanical_Switch_v01.f3d](cad/Mechanical_Switch_v01.f3d) in Fusion, or browse the [STL folder](stl).
-2. Read the [measurement gates](docs/validation.md). Record your switch, horn and spring measurements.
-3. Print the pilot coupon, bezel and bridge first. Verify fit and adhesive contact before printing the full set.
-4. Follow the [assembly guide](docs/assembly.md), then complete the manual plunger tests.
-5. Progress to low-speed powered bench testing only after the mechanical checks pass.
-
-**External actuation only:** installation does not require opening the faceplate, using its fixing screws, accessing mains wiring, or routing cables into the backbox. Use an unpowered training switch for the workshop.
-
-## Learn by building
-
-- Trace the load path from the switch, through the springs, cam, cradle and mounting tape.
-- Compare clearance, backlash, friction and print orientation.
-- Measure force and travel instead of assuming that a powerful servo is better.
-- Test how adhesive area, offset loads and surface curvature affect attachment.
-- Document a failed assumption and improve the next iteration.
-
-The [workshop plan](docs/workshop.md) includes a practical session sequence and a measurement worksheet.
-
-## What is verified?
-
-The STL checks confirm closed edges and positive volume for all 25 meshes. Fusion checks inspect neutral solid overlap and nine sampled X/Y adjustment positions. These are geometric checks, not strength, motion, electrical or adhesion certification. See [the validation record](docs/validation.md) and [machine-readable results](validation).
-
-## Repository map
-
-| Folder | Contents |
-|---|---|
-| [`cad/`](cad) | Native Fusion file, builder, inspection and export scripts |
-| [`stl/`](stl) | Individual print meshes in millimetres, translated to the origin |
-| [`docs/`](docs) | Mechanical design, BOM, assembly, wiring, workshop and test gates |
-| [`assets/`](assets) | Cover and actual Fusion views |
-| [`validation/`](validation) | Geometry reports and repeatable STL checker |
-| [`reference/`](reference) | Context summary and manufacturer references |
-
-The source proposal was used as context and is not redistributed here. **The dimensions and limitations in `docs/` describe the delivered v0.1.** The proposed 18/26 mm inserts, compact enclosure and alternative sidecar mounts are future work.
+The previous v0.1 is available in Git history. Its cam, springs, plungers, sidecar and meshes are superseded. The repository name is retained to preserve its URL; instructional-session material has been removed.
 
 

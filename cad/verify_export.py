@@ -1,20 +1,78 @@
-import adsk.core,adsk.fusion,json,os
-OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Or set your output folder explicitly for MCP.
+"""Geometry checks and exports. Run after build transaction completes."""
+import adsk.core,adsk.fusion,os,json,math
+OUT=os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 def run(_context: str):
- app=adsk.core.Application.get();d=adsk.fusion.Design.cast(app.activeProduct);r=d.rootComponent;tm=adsk.fusion.TemporaryBRepManager.get()
- bs=[b for b in r.bRepBodies if not b.name.startswith('REF_') and 'coupon' not in b.name]
- collisions=[]
+ app=adsk.core.Application.get();doc=next(doc for doc in app.documents if doc.name=='Mechanical Switch');doc.activate()
+ d=adsk.fusion.Design.cast(doc.products.itemByProductType('DesignProductType'));r=d.rootComponent;tm=adsk.fusion.TemporaryBRepManager.get()
+ def group(b):return b.attributes.itemByName('MechanicalSwitch','group').value
+ bs=[b for b in r.bRepBodies if group(b) not in ('optional','keepout')]
+ def intersect(a,b):
+  if not a.boundingBox.intersects(b.boundingBox):return 0
+  c=tm.copy(a);ok=tm.booleanOperation(c,tm.copy(b),adsk.fusion.BooleanTypes.IntersectionBooleanType)
+  return c.volume*1000 if ok and c else 0
+ def moved(b,x=0,angle=0):
+  c=tm.copy(b);m=adsk.core.Matrix3D.create()
+  if angle:m.setToRotation(math.radians(angle),adsk.core.Vector3D.create(1,0,0),adsk.core.Point3D.create(0,0,1.6))
+  tm.transform(c,m)
+  if x:
+   m=adsk.core.Matrix3D.create();m.translation=adsk.core.Vector3D.create(x/10,0,0);tm.transform(c,m)
+  return c
+ hits=[]
  for i,a in enumerate(bs):
   for b in bs[i+1:]:
-   if not a.boundingBox.intersects(b.boundingBox):continue
-   c=tm.copy(a)
-   ok=tm.booleanOperation(c,tm.copy(b),adsk.fusion.BooleanTypes.IntersectionBooleanType)
-   if ok and c and c.volume>1e-6:collisions.append([a.name,b.name,round(c.volume*1000,4)])
- inventory=[{'name':b.name,'solid':b.isSolid,'volume_mm3':b.volume*1000,'bounds_mm':[[p.x*10,p.y*10,p.z*10] for p in [b.boundingBox.minPoint,b.boundingBox.maxPoint]]} for b in r.bRepBodies]
- open(os.path.join(OUT,'validation','fusion_checks.json'),'w').write(json.dumps({'neutral_intersections_mm3':collisions,'inventory':inventory},indent=2))
+   vol=intersect(a,b)
+   if vol>0.001:hits.append([a.name,b.name,round(vol,4)])
+ adjustment=[]
+ fixed=[b for b in bs if group(b)=='fixed']
+ for x in range(-26,27,2):
+  for b in bs:
+   if group(b) in ('fixed','switch'):continue
+   c=moved(b,x)
+   for a in fixed:
+    vol=intersect(a,c)
+    if vol>0.001:adjustment.append({'x_mm':x,'a':a.name,'b':b.name,'overlap_mm3':round(vol,4)})
+ sweep=[];contacts=[]
+ rotor=[b for b in bs if group(b)=='rotor']
+ static=[b for b in bs if group(b)!='rotor']
+ for angle in range(-30,31,2):
+  for b in rotor:
+   c=moved(b,angle=angle)
+   for a in static:
+    vol=intersect(a,c)
+    if vol>0.001:
+     row={'angle_deg':angle,'a':a.name,'b':b.name,'overlap_mm3':round(vol,4)}
+     if group(a)=='switch' and b.name.startswith('05_'):contacts.append(row)
+     else:sweep.append(row)
+ keepout=next(b for b in r.bRepBodies if group(b)=='keepout');clearance=[]
+ for b in bs:
+  if b.name.startswith('REF_'):continue
+  vol=intersect(b,keepout)
+  if vol>0.001:clearance.append([b.name,round(vol,4)])
+ report={'neutral_collisions_mm3':hits,'x_sample_mm':list(range(-26,27,2)),
+         'adjustment_collisions':adjustment,'angle_samples_deg':list(range(-30,31,2)),
+         'rigid_sweep_collisions':sweep,'intended_soft_contact_with_flat_reference':contacts,
+         'board_keepout_collisions_mm3':clearance,
+         'scope':'Rigid discrete geometric samples. TPU deformation, switch internal action, fasteners, real connector shapes and forces are not simulated.',
+         'all_bodies_solid':all(b.isSolid and b.lumps.count==1 for b in r.bRepBodies),
+         'body_count':r.bRepBodies.count}
+ with open(os.path.join(OUT,'validation','fusion_checks.json'),'w') as f:json.dump(report,f,indent=2)
+ assert not hits and not adjustment and not sweep and not clearance, 'Interference found; see fusion_checks.json'
+ # Internal overview from left side to expose the shaft and single contact insert.
+ for b in r.bRepBodies:
+  b.isLightBulbOn=group(b) not in ('optional','keepout') and not b.name.startswith(('06_','07_','REF_Waveshare'))
+ cam=app.activeViewport.camera;cam.viewOrientation=adsk.core.ViewOrientations.IsoTopLeftViewOrientation;app.activeViewport.camera=cam;app.activeViewport.fit()
+ app.activeViewport.saveAsImageFile(os.path.join(OUT,'assets','fusion-mechanism.png'),1600,1200)
+ # Closeup with non-essential structure hidden for explaining the direct drive.
+ for b in r.bRepBodies:
+  b.isLightBulbOn=group(b) in ('rotor','switch') or b.name.startswith(('REF_STS','REF_servo_output'))
+ app.activeViewport.fit();app.activeViewport.saveAsImageFile(os.path.join(OUT,'assets','fusion-direct-drive.png'),1400,1100)
+ # Export neutral assembly, with optional pads and reference component keepout hidden.
+ for b in r.bRepBodies:b.isLightBulbOn=group(b) not in ('optional','keepout')
+ cam=app.activeViewport.camera;cam.viewOrientation=adsk.core.ViewOrientations.IsoTopRightViewOrientation;app.activeViewport.camera=cam;app.activeViewport.fit()
+ app.activeViewport.saveAsImageFile(os.path.join(OUT,'assets','fusion-assembly.png'),1600,1200)
  results={}
- results['f3d']=d.exportManager.execute(d.exportManager.createFusionArchiveExportOptions(os.path.join(OUT,'cad','Mechanical_Switch_v01.f3d')))
- results['step']=d.exportManager.execute(d.exportManager.createSTEPExportOptions(os.path.join(OUT,'cad','Mechanical_Switch_v01.step')))
- if not results['step'] and os.path.exists(os.path.join(OUT,'cad','Mechanical_Switch_v01.step')):os.remove(os.path.join(OUT,'cad','Mechanical_Switch_v01.step'))
- open(os.path.join(OUT,'validation','exports.json'),'w').write(json.dumps(results,indent=2))
-
+ results['f3d']=d.exportManager.execute(d.exportManager.createFusionArchiveExportOptions(os.path.join(OUT,'cad','Mechanical_Switch_v02.f3d')))
+ results['step']=d.exportManager.execute(d.exportManager.createSTEPExportOptions(os.path.join(OUT,'cad','Mechanical_Switch_v02.step')))
+ if not results['step'] and os.path.exists(os.path.join(OUT,'cad','Mechanical_Switch_v02.step')):os.remove(os.path.join(OUT,'cad','Mechanical_Switch_v02.step'))
+ with open(os.path.join(OUT,'validation','exports.json'),'w') as f:json.dump(results,f,indent=2)
+ assert results['f3d']
