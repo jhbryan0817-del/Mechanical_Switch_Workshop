@@ -1,0 +1,47 @@
+[
+  {
+    "x_offset_mm": -28.5,
+    "y_offset_mm": -12,
+    "intersections_mm3": []
+  },
+  {
+    "x_offset_mm": -28.5,
+    "y_offset_mm": 0,
+    "intersections_mm3": []
+  },
+  {
+    "x_offset_mm": -28.5,
+    "y_offset_mm": 12,
+    "intersections_mm3": []
+  },
+  {
+    "x_offset_mm": 0,
+    "y_offset_mm": -12,
+    "intersections_mm3": []
+  },
+  {
+    "x_offset_mm": 0,
+    "y_offset_mm": 0,
+    "intersections_mm3": []
+  },
+  {
+    "x_offset_mm": 0,
+    "y_offset_mm": 12,
+    "intersections_mm3": []
+  },
+  {
+    "x_offset_mm": 28.5,
+    "y_offset_mm": -12,
+    "intersections_mm3": []
+  },
+  {
+    "x_offset_mm": 28.5,
+    "y_offset_mm": 0,
+    "intersections_mm3": []
+  },
+  {
+    "x_offset_mm": 28.5,
+    "y_offset_mm": 12,
+    "intersections_mm3": []
+  }
+]

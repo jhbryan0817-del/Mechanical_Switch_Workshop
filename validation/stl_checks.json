@@ -1,0 +1,327 @@
+[
+  {
+    "file": "01_faceplate_tape_frame.stl",
+    "triangles": 1552,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 27871.423,
+    "size_mm": [
+      98.0,
+      98.0,
+      13.0
+    ]
+  },
+  {
+    "file": "02_xy_bridge.stl",
+    "triangles": 800,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 10318.122,
+    "size_mm": [
+      64.0,
+      90.0,
+      4.0
+    ]
+  },
+  {
+    "file": "03_lower_guide_and_pillars.stl",
+    "triangles": 1276,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 24877.145,
+    "size_mm": [
+      64.0,
+      74.0,
+      29.4
+    ]
+  },
+  {
+    "file": "04_follower_guide.stl",
+    "triangles": 432,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 8917.074,
+    "size_mm": [
+      56.0,
+      70.0,
+      3.0
+    ]
+  },
+  {
+    "file": "05_guide_spacer_1.stl",
+    "triangles": 32,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 396.576,
+    "size_mm": [
+      12.0,
+      12.0,
+      5.4
+    ]
+  },
+  {
+    "file": "05_guide_spacer_2.stl",
+    "triangles": 32,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 396.576,
+    "size_mm": [
+      12.0,
+      12.0,
+      5.4
+    ]
+  },
+  {
+    "file": "05_guide_spacer_3.stl",
+    "triangles": 32,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 396.576,
+    "size_mm": [
+      12.0,
+      12.0,
+      5.4
+    ]
+  },
+  {
+    "file": "05_guide_spacer_4.stl",
+    "triangles": 32,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 396.576,
+    "size_mm": [
+      12.0,
+      12.0,
+      5.4
+    ]
+  },
+  {
+    "file": "05b_guide_retainer_1.stl",
+    "triangles": 32,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 1270.512,
+    "size_mm": [
+      12.0,
+      12.0,
+      17.3
+    ]
+  },
+  {
+    "file": "05b_guide_retainer_2.stl",
+    "triangles": 32,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 1270.512,
+    "size_mm": [
+      12.0,
+      12.0,
+      17.3
+    ]
+  },
+  {
+    "file": "05b_guide_retainer_3.stl",
+    "triangles": 32,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 1270.512,
+    "size_mm": [
+      12.0,
+      12.0,
+      17.3
+    ]
+  },
+  {
+    "file": "05b_guide_retainer_4.stl",
+    "triangles": 32,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 1270.512,
+    "size_mm": [
+      12.0,
+      12.0,
+      17.3
+    ]
+  },
+  {
+    "file": "06_contact_stem_1.stl",
+    "triangles": 700,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 426.975,
+    "size_mm": [
+      9.59,
+      9.595,
+      22.8
+    ]
+  },
+  {
+    "file": "06_contact_stem_2.stl",
+    "triangles": 700,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 426.975,
+    "size_mm": [
+      9.59,
+      9.595,
+      22.8
+    ]
+  },
+  {
+    "file": "06b_stem_retaining_clip_1.stl",
+    "triangles": 260,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 34.08,
+    "size_mm": [
+      9.0,
+      8.687,
+      0.8
+    ]
+  },
+  {
+    "file": "06b_stem_retaining_clip_2.stl",
+    "triangles": 260,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 34.08,
+    "size_mm": [
+      9.0,
+      8.687,
+      0.8
+    ]
+  },
+  {
+    "file": "07_spring_cup_1.stl",
+    "triangles": 540,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 710.024,
+    "size_mm": [
+      12.99,
+      12.995,
+      15.4
+    ]
+  },
+  {
+    "file": "07_spring_cup_2.stl",
+    "triangles": 540,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 710.024,
+    "size_mm": [
+      12.99,
+      12.995,
+      15.4
+    ]
+  },
+  {
+    "file": "08_tpu_shoe_1.stl",
+    "triangles": 164,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 192.399,
+    "size_mm": [
+      10.0,
+      7.0,
+      3.5
+    ]
+  },
+  {
+    "file": "08_tpu_shoe_2.stl",
+    "triangles": 164,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 192.399,
+    "size_mm": [
+      10.0,
+      7.0,
+      3.5
+    ]
+  },
+  {
+    "file": "09_servo_cradle.stl",
+    "triangles": 1504,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 30072.081,
+    "size_mm": [
+      64.0,
+      74.0,
+      43.6
+    ]
+  },
+  {
+    "file": "10_servo_retaining_cap.stl",
+    "triangles": 512,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 5775.875,
+    "size_mm": [
+      40.0,
+      51.0,
+      4.0
+    ]
+  },
+  {
+    "file": "11_face_cam_4mm.stl",
+    "triangles": 2624,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 3537.872,
+    "size_mm": [
+      42.99,
+      37.999,
+      7.006
+    ]
+  },
+  {
+    "file": "12_open_controller_sidecar.stl",
+    "triangles": 1420,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 11054.309,
+    "size_mm": [
+      57.0,
+      78.0,
+      12.3
+    ]
+  },
+  {
+    "file": "13_m3_pilot_coupon.stl",
+    "triangles": 428,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 9402.776,
+    "size_mm": [
+      48.0,
+      20.0,
+      10.0
+    ]
+  }
+]
