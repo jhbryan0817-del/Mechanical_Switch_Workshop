@@ -1,9 +1,0 @@
-{
-  "version": "0.3",
-  "components": 9,
-  "bodies": 12,
-  "names_match": true,
-  "volume_tolerance_mm3": 0.01,
-  "passed": true,
-  "original_save_result": true
-}
