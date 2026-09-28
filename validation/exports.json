@@ -1,4 +1,58 @@
-{
-  "f3d": true,
-  "step": true
-}
+[
+  {
+    "file": "01_integrated_chassis.stl",
+    "source_component": "PRINT 01 - 82mm integrated adhesive chassis:1",
+    "units": "mm",
+    "solid": true,
+    "lumps": 1,
+    "volume_mm3": 106120.41241657989,
+    "print_min_z_mm": 0.0,
+    "print_size_mm": [
+      82.0,
+      82.0,
+      52.0
+    ]
+  },
+  {
+    "file": "02_servo_clamp.stl",
+    "source_component": "PRINT 02 - broad servo clamp M3:1",
+    "units": "mm",
+    "solid": true,
+    "lumps": 1,
+    "volume_mm3": 2788.4029541081254,
+    "print_min_z_mm": 0.0,
+    "print_size_mm": [
+      31.0,
+      60.1,
+      3.2
+    ]
+  },
+  {
+    "file": "03_actuator_PLACEHOLDER.stl",
+    "source_component": "PRINT 03 - solid rocker actuator M3:1",
+    "units": "mm",
+    "solid": true,
+    "lumps": 1,
+    "volume_mm3": 10230.20352219955,
+    "print_min_z_mm": 0.0,
+    "print_size_mm": [
+      26.2,
+      24.0,
+      20.7
+    ]
+  },
+  {
+    "file": "04_closed_branded_cover.stl",
+    "source_component": "PRINT 04 - cover and PCB capture:1",
+    "units": "mm",
+    "solid": true,
+    "lumps": 1,
+    "volume_mm3": 19560.88847987394,
+    "print_min_z_mm": 0.0,
+    "print_size_mm": [
+      82.0,
+      82.0,
+      13.65
+    ]
+  }
+]

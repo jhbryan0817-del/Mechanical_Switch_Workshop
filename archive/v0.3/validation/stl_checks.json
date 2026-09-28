@@ -1,0 +1,80 @@
+[
+  {
+    "file": "01_mounting_frame.stl",
+    "triangles": 880,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 11151.988,
+    "size_mm": [
+      86.0,
+      86.0,
+      10.0
+    ]
+  },
+  {
+    "file": "02_sliding_servo_chassis.stl",
+    "triangles": 1568,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 15986.028,
+    "size_mm": [
+      83.1,
+      86.0,
+      30.7
+    ]
+  },
+  {
+    "file": "03_servo_clamp.stl",
+    "triangles": 288,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 2346.965,
+    "size_mm": [
+      35.0,
+      62.0,
+      2.0
+    ]
+  },
+  {
+    "file": "04_integral_rocking_shoe.stl",
+    "triangles": 1090,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 2534.201,
+    "size_mm": [
+      11.7,
+      24.0,
+      18.7
+    ]
+  },
+  {
+    "file": "05_controller_shelf.stl",
+    "triangles": 2340,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 7686.777,
+    "size_mm": [
+      83.0,
+      58.0,
+      6.0
+    ]
+  },
+  {
+    "file": "06_rounded_enclosure.stl",
+    "triangles": 2684,
+    "closed_edge_check": true,
+    "nonmanifold_or_boundary_edges": 0,
+    "positive_volume": true,
+    "volume_mm3": 48674.73,
+    "size_mm": [
+      89.0,
+      92.0,
+      50.7
+    ]
+  }
+]

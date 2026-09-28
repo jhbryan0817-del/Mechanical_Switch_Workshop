@@ -1,15 +1,9 @@
-# Low-voltage control notes
+# Wiring and commissioning — v0.4
 
-Retain the existing STS3215 and Waveshare ESP32 servo driver. Connect a regulated supply compatible with the **actual servo variant** to the board's DC input; connect the servo to the compatible ST-series bus port. The controller's 6–12 V input specification does not override the servo's voltage limit. The referenced 7.4 V servo build must not be supplied with 12 V. Verify polarity and keyed pinout against the hardware markings and manufacturer documentation.
+Retain the STS3215 and Waveshare ESP32 driver. Match supply voltage, polarity and bus pinout to the actual purchased variants and manufacturer markings. No firmware/electrical changes are included.
 
-The mechanism has changed; **discard the v0.1 cam commands and ±40° examples**. No ready-to-run firmware is supplied in this mechanical repository.
+Connect and test before closing the cover. Display and button openings are intentionally closed. Power/USB/servo routing and strain-relief slots remain; check actual plugs and bend clearance. Avoid loading solder joints and keep leads away from moving parts.
 
-1. Establish neutral with the paddle detached. Fit the horn in the documented neutral orientation, then disconnect power for assembly.
-2. Confirm both integral contact lands clear the rocker in either latched state. Check the correct direction with small, low-speed movements.
-3. Increase displacement only until latching occurs. Return to neutral after the press; do not hold the servo against the rocker.
-4. Configure conservative torque/current protection using the actual servo/controller capabilities. Stop on abnormal current, missed movement or a stalled motor.
-5. Keep the calibrated limit within the checked geometric range, and smaller wherever actual switch travel allows. The ±30° CAD sweep is a clearance study, not a safe default command.
+Do not reuse earlier repository motion examples. Establish physical switch fit and finalize the actuator before calibrating slow, small movements with conservative current/torque limits. The sampled ±15° clearance check is not an operating-range recommendation. Stop on unexpected contact or a stall; return to a non-loading position after operation.
 
-The rigid shoe and optional thin facing provide no calibrated force limit. Measure actual force through the stroke; default delayed overload protection is insufficient as a mechanical force guarantee. No firmware or servo settings were changed by this CAD revision. Route and restrain cables inside the enclosure without touching the paddle or bending connectors against the lid. All wiring remains external to the faceplate/backbox.
-
-Sources: [FEETECH STS3215 datasheet](https://files.seeedstudio.com/products/Feetech/108090023_STS3215-C001_Datasheet.pdf), [Waveshare controller documentation](https://docs.waveshare.com/Servo_Driver_with_ESP32).
+All added wiring stays outside the faceplate/backbox. Consult the actual servo datasheet and [Waveshare documentation](https://docs.waveshare.com/Servo_Driver_with_ESP32).

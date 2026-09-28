@@ -1,3 +1,13 @@
+# v0.4 — 2026-09-28
+
+- Synchronize repository to current manually edited Fusion assembly: four parts, 82 mm footprint.
+- Add branded closed cover, integrated wall-connected screw blocks, solid left PCB platform with two M3 pilots and solid right PCB capture pads.
+- Close display and button openings; retain wiring/ventilation openings.
+- Preserve user actuator placeholder and shifted rear window, previously reduced 20% in height.
+- Export high-resolution, print-oriented STLs at Z=0 plus current F3D and STEP.
+- Document assembly, print settings, mesh checks and unresolved reference-rocker/PCB-hole fit.
+- Archive superseded v0.3 files separately.
+
 # v0.3 — 2026-09-27
 
 - Simplified 25 loose bodies into nine named components containing twelve solids; removed tape, screw, alternate insert, coupon and keepout models.

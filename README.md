@@ -1,17 +1,17 @@
-# Mechanical Switch — v0.3
+# IoT Beyond Lab — Mechanical Switch v0.4
 
-A removable servo actuator for the small rounded rocker on a square wall-switch plate. **Prototype: physical force, travel and fit are still unverified.**
+Current four-part design exported from the edited **Mechanical Switch** Fusion document. **82 × 82 mm** footprint; **54.8 mm** enclosure depth, excluding adhesive and the wall-switch plate.
 
-![Open assembly](assets/fusion-assembly.png)
+![Closed branded enclosure](assets/fusion-assembly.png)
 
-The live Fusion file has **nine named components / twelve solids**, including six printed pieces, the servo with its stock metal horn, the ESP32 driver and the reference switch board. Adhesive solids, screw placeholders, alternate inserts, test coupon and component keepout clutter have been removed. The cover is retained but hidden by default; turn on component 06 to inspect it.
+The integrated chassis has wall-connected corner screw blocks and a full-height left PCB platform with two blind M3 pilots. The right PCB edge rests on ledges and is captured by solid rectangular cover pads. Display and button openings are closed; ventilation, wiring and fastening openings remain.
 
-The new **one-piece PETG rocking shoe** replaces the thin TPU leaves and their central screw attachment. A 6.2 mm horn web and broad 5 mm bridge take the load directly from the stock metal horn to two integral contact lands. No custom CNC part or printed spline is specified. Thin optional soft facing protects the switch surface; it is not a torque limiter.
+**The meshes are ready to slice, but the assembly remains a fit-test prototype.** The actuator is a placeholder. The preserved rear shielding overlaps the switch-rocker reference; physical fit and actuation are not validated.
 
-![Integral shoe and stock horn](assets/fusion-direct-drive.png)
+- [Four print-oriented STLs](stl), in millimetres, centered in XY and seated on Z=0.
+- [Fusion archive](cad/Mechanical_Switch_v04.f3d) · [STEP assembly](cad/Mechanical_Switch_v04.step).
+- [Printing](docs/printing.md) · [Assembly](docs/assembly.md) · [BOM](docs/bom.md) · [Mechanics](docs/mechanics.md) · [Wiring](docs/wiring.md) · [Validation](docs/validation.md).
 
-[Fusion archive](cad/Mechanical_Switch_v03.f3d) · [STEP](cad/Mechanical_Switch_v03.step) · [Six print meshes](stl) · [Mechanical audit](docs/mechanics.md) · [Assembly](docs/assembly.md) · [BOM](docs/bom.md) · [Validation](docs/validation.md)
+![Internal assembly](assets/fusion-internal.png)
 
-The 86 mm plate and 17 × 17 × 6 mm rocker remain dimensional assumptions. The related Schneider S-Classic family is a plausible visual reference, not a confirmed identification of the pictured switch. Measure the actual switch before printing the final shoe or powering it.
-
-The retained mounting frame provides ±26 mm static horizontal adjustment. Tape and screws remain required physical hardware even though their reference solids are removed. Source scripts recreate the geometry; Git history retains v0.2.
+The Fusion archive is the source of truth, including manual edits. The [export script](cad/export_current_fusion.py) exports an already-open design; it does not rebuild geometry. Superseded six-part v0.3 files are in [archive/v0.3](archive/v0.3). Do not mix them with v0.4.

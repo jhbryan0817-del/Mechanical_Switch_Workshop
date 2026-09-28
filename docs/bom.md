@@ -1,17 +1,16 @@
-# Parts — v0.3
+# Bill of materials — v0.4
 
-Six printed parts: 01 mounting frame, 02 sliding servo chassis, 03 servo clamp, 04 integral rocking shoe, 05 controller shelf and 06 rounded enclosure. PETG is the prototype material; no TPU leaf, separate contact insert, printed spline or custom CNC component remains.
+| Qty | Item | Notes |
+|---:|---|---|
+| 1 each | Chassis, servo clamp, closed cover | STLs 01, 02, 04 |
+| 1 optional | Actuator placeholder | STL 03, final geometry undecided |
+| 1 | STS3215 servo and stock horn | Confirm actual case and shaft hardware |
+| 1 | Waveshare Servo Driver with ESP32 | Existing manufacturer reference retained |
+| 4 | M3 cover screws | Approximately 12 mm under-head length; verify fit |
+| 2 | M3 clamp screws | Approximately 10 mm under-head length; verify fit |
+| 2 | Left PCB screws | M3 planned, 8–10 mm plastic engagement; check PCB clearance |
+| As needed | Actuator hardware | Finalize after physical trials |
+| As needed | Conformable adhesive | Approximately 1 mm gap; fit to actual plate |
+| As needed | Servo/power cables and ties | Check connectors and strain relief |
 
-Retained purchased hardware:
-
-- STS3215 of the actual specified voltage variant; compatible stock metal horn and centre screw.
-- Two horn-to-shoe screws matching the actual metal horn thread, with suitable load-spreading heads/washers. Slots are 3.4 mm wide. **Measure length for the new 11.7 mm bolt bosses**, retaining adequate thread engagement without bottoming. Confirm screwdriver/head clearance against the shoe before assembly.
-- Waveshare Servo Driver with ESP32, existing 65 × 30 mm board.
-- Four M3 × 10 nominal screws: two carriage locks and two clamp screws. Clamp heads ≤5.5 mm diameter and ≤2 mm high; two washers for carriage locks.
-- Four nominal M3 × 25 cover/shelf screws with heads ≤6 mm diameter and ≤2 mm high. Check blind engagement in the printed 2.7 mm pilots.
-- Board retaining cable ties, servo fit shims and cable strain relief.
-- Six faceplate-compatible foam tape pieces, nominal 1 mm thick: two 70 × 9 mm and four 4 × 15 mm. Tape is still needed; only its CAD solids were removed.
-- Optional two 0.5 mm silicone/rubber contact facings, trimmed inside the rounded 8 × 4 mm contact lands. These are consumables, not modeled printed parts.
-- Compatible low-voltage supply and ST-series bus lead.
-
-The old M3 contact-insert screw is removed. Main printed pilots remain 2.7 mm; test thread forming on scrap before assembly. All nominal screw lengths require checking on the actual print and horn. No fastener placeholders remain in the simplified CAD.
+Screw lengths are starting points, not a validated kit. Printed pilots are Ø2.6 mm. The PCB reference holes are Ø2.75 mm and may not provide M3 clearance. Electronics, screws, cables and adhesive are not included in the print meshes.
