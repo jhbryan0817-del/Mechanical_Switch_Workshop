@@ -1,3 +1,15 @@
+# v0.7 — 2026-09-30
+
+- Save cleanup in the live Mechanical Switch Fusion document; update Markdown documentation only.
+- Remove both battery ribs/tunnels and seal both floor slots flush with the 3.2 mm floor.
+- Reduce Print 02's two Ø3.3 mm holes to Ø2.6 mm, matching the M3 self-threading chassis pilots.
+- Flatten PCB support impressions, replace the small capacitor notch with a straight inset edge, clean the cable-opening surround, align the right support underside, and close obsolete recesses/left-wall slots.
+- Preserve the large servo-wire passage, vents and functional mounting clearances.
+- Round all four through-floor actuator-window corners to R3 mm. Leave actuator design to the user; none is present in the live document.
+- Verify three single-solid PRINT components, chassis/component clearances, maximum battery clearance, sealed floor, hole diameters and window radii.
+- Record the remaining rocker/chassis overlap at 254.83 mm³ and the need to revise battery retention after removing the tunnels.
+- Leave all 3D files, repository images, scripts and JSON reports unchanged.
+
 # v0.6 — 2026-09-30
 
 - Save the revised layout in the live Mechanical Switch Fusion document; update documentation only.

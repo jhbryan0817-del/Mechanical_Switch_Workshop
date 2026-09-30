@@ -1,4 +1,4 @@
-# Mechanical design — v0.6
+# Mechanical design — v0.7
 
 Saved in the live Mechanical Switch Fusion document on 2026-09-30. Repository geometry remains v0.4. Coordinates are assembly millimetres; Z is normal to the switch plate. **Front** means the +Y wall opposite the battery, confirmed against the user's open-enclosure view.
 
@@ -16,26 +16,28 @@ Saved in the live Mechanical Switch Fusion document on 2026-09-30. Repository ge
 | Highest PCB component | Approximately Z=46.1; 6.9 mm to lid underside |
 | Remaining right lid pad | Bottom Z=38.95; 0.15 mm above board top |
 | Print 02 stop | X=-6..2.65, Y=21.8..35.8, Z=12..34.2 |
-| Stop screws | X=-3, Y=24.8 and 32.8; Ø3.3 clearance / Ø2.6 blind pilots |
+| Stop screws | X=-3, Y=24.8 and 32.8; Ø2.6 through-holes in stop / Ø2.6 blind chassis pilots |
 | Stop-to-case gap | 0.35 mm at X=3 case face |
-| Actuator placeholder | X=-23..-2.3, Y=-7.2..16.8, Z=6.8..33 |
-| Actuator shaft axis | Parallel to X through Y=4.8, Z=22 |
-| Rear actuator window | X=-24..3, Y=-8..17.6 |
+| Actuator | Not present in current live design; to be designed manually |
+| Servo shaft axis | Parallel to X through Y=4.8, Z=22 |
+| Through-floor actuator window | X=-24..3, Y=-8..17.6, Z=1..4.2; 27 × 25.6 mm, four R3 mm corners |
 | Cable pocket cavity | X=38.35..46, Y=1..21, Z=13..44 |
 | Clear upper cable passage | Y=1..21, Z=34.6..44; obstructing tab and thin divider removed |
 | Nominal battery | X=-29..29, Y=-32.7..-12.7, Z=6.7..38.7 |
 | Maximum battery envelope | X=-31.5..31.5, Y=-33.7..-11.7, Z=6.7..40.7 |
 | Battery pocket | 64 mm wide; forward clearance face Y=-11.2; upper relief Z=41 |
-| Battery support ribs | X=±18, top Z=6.2; internal soft-strap tunnels retained |
+| Battery floor | Flat at Z=4.2; both ribs/tunnels removed and both floor slots sealed |
 
-## Changes from v0.5
+## Changes from v0.6
 
-Removed the upper-right PCB locating tab and matching cover pad to eliminate the fragile obstruction across the wire escape. The existing closed outward cable pocket remains. Its upper passage is open uniformly across the 20 mm groove width, without the projecting tab or narrow divider.
+Removed both battery ribs at X=±18 and their internal tunnels. Sealed both rectangular floor slots with continuous 3.2 mm floor thickness. The nominal battery reference remains at Z=6.7, leaving 2.5 mm to the new flat floor; pad thickness and retention must be chosen for the actual pack. The previous strap-threading method no longer applies.
 
-Removed the 4.8 mm filled region at Y=33.2..38 ahead of the servo bay. The servo/horn, bed and rear flange, stop and pilots, PCB and platform, remaining right support and cover pads, actuator and rear clearance window all move +4.8 mm in Y. The lower-right support has a continuous connection to its flange instead of the previous 0.2 mm height mismatch. Servo sliding clearances remain 0.30 mm below and 0.25 mm above at the retained rail.
+Reduced both Print 02 holes from Ø3.3 to Ø2.6 mm, matching the existing chassis pilots. The centers, 3.2 mm stop flange, and blind chassis pilot depth are unchanged. These are undersized plain holes for M3 thread forming, not modeled helical threads.
 
-The battery, maximum envelope, lead-storage allowance and support layout move +4.8 mm. The bay keeps at least 0.5 mm side and forward clearance around the maximum envelope; extra space remains behind the pack. The 0.5 mm insulating-pad allowance remains. Chassis and cover end at Y=-41, removing the former battery-side bump, with a 3 mm lower rear wall to Y=-38.
+Removed the shallow PCB footprint impressions, flattened support tops to Z=37.19 (about 0.01 mm below the PCB), and replaced the localized left capacitor notch with a straight support edge at X=-25.8. The entire edge was inset 1 mm to preserve underside-component clearance without a small isolated indentation. The right locating pin remains connected.
 
-Two left PCB screws, the remaining lower-right locating pin/support, and matching cover capture retain the board. The deleted corner is intentionally unsupported. Verify board flex and support strength in a physical print. The cover screw pattern, branding, vents and fixed switch reference are retained.
+Flattened the 0.1 mm stepped surround of the large wire passage, aligned the remaining right support underside to Z=34.6, filled the obsolete upper-right support recess, and closed the two old narrow left-wall slots. The large cable cavity, ventilation bores, mounting pilots, cover screw counterbores and functional servo clearances remain.
 
-The actuator shape is unchanged but its position is not. Recheck contact location and travel against the real fixed switch; the existing rocker/chassis interference remains unresolved. See [validation](validation.md).
+Rounded all four corners of the through-floor actuator opening to R3 mm through the full floor thickness. Both faces of this same opening now have a rounded-rectangle outline. No actuator was created or modified; none was present when this revision was inspected.
+
+The prior +4.8 mm layout shift and 90 × 82 × 54.8 mm enclosure envelope are retained. The fixed rocker/chassis interference remains unresolved; see [validation](validation.md).

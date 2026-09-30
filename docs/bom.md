@@ -1,9 +1,9 @@
-# Bill of materials — v0.6
+# Bill of materials — v0.7
 
 | Qty | Item | Notes |
 |---:|---|---|
 | 1 each | Revised chassis, horizontal stop, cover | Saved in Fusion only; old repository STLs are incompatible |
-| 1 optional | Actuator placeholder | Shape retained, moved +4.8 mm in Y; not production-ready |
+| 1 | Manually designed actuator | Not present in current live model; user will design it |
 | 1 | STS3215/ST3215 servo and stock horn | Confirm actual voltage variant and case/lead geometry |
 | 1 | Waveshare Servo Driver with ESP32 | Manufacturer PCB reference; lowered 3.2 mm and moved +4.8 mm in Y |
 | 1 | Gens ace GEA8502S60E2 850 mAh 2S 7.4 V 60C battery, EC2 | 58 × 32 × 20 mm nominal; 63 × 34 × 22 mm published upper dimensions |
@@ -12,7 +12,7 @@
 | 1 | Suitable 2S low-voltage disconnect/protection | No integrated pack BMS assumed; hardware size not yet modeled |
 | 1 | Compact internal DC power pigtail | Match board's 5.5 × 2.1 mm input; physical fit unresolved |
 | 1 | External 2S LiPo balance charger | For EC2 discharge and JST-XHR-3P balance leads |
-| 1 | Soft battery strap and insulating pad | Nominal 0.5 mm pad allowance; do not compress pack |
+| 1 set | Insulating pad and removable battery retention | Flat floor; 2.5 mm to unchanged nominal battery reference. Old strap tunnels removed; retention method and pad thickness require validation |
 | 4 | M3 cover screws | Existing approximately 12 mm starting length; verify |
 | 2 | M3 horizontal-stop screws | Approximately 8 mm starting length; verify pilot depth |
 | 2 | Left PCB screws | Verify Ø2.75 mm board-hole clearance before using M3 |

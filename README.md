@@ -1,18 +1,18 @@
-# IoT Beyond Lab — Mechanical Switch v0.6
+# IoT Beyond Lab — Mechanical Switch v0.7
 
-The **Mechanical Switch** Fusion cloud document contains the saved v0.6 revision (2026-09-30). The live design is the source of truth.
+The **Mechanical Switch** Fusion cloud document contains the saved v0.7 revision (2026-09-30). The live design is the source of truth.
 
-The upper-right PCB tab obstructing the servo-wire escape is removed, leaving a continuous internal groove. The remaining lower-right support is aligned with the relocated board and joined continuously to its flange. Removing the filled space ahead of the servo allows the servo, stop, PCB, actuator and battery layout to move **4.8 mm toward the front wall** (+Y). The battery-side 1 mm exterior bump is removed from chassis and cover.
+The battery ribs and their tunnels are removed, both battery-floor slots are sealed, and the floor is flat. Print 02's two holes now match the Ø2.6 mm M3 self-threading pilots. Small obsolete recesses are cleaned up while retaining the large servo-wire passage. The through-floor actuator opening has four tangent R3 mm corners.
 
 Overall enclosure envelope: **90 × 82 × 54.8 mm**, excluding adhesive and switch plate. The main enclosure remains 82 mm wide, with the existing 8 mm side cable pocket. Walls remain 3 mm nominal; the floor remains 3.2 mm.
 
-**Documentation-only repository update:** CAD, STEP, STL, screenshots, scripts and JSON reports remain the **v0.4 baseline**. They do not represent v0.6 and must not be used to print this assembly. No revised 3D files were exported or uploaded; the revision is saved in Fusion only.
+**Documentation-only repository update:** CAD, STEP, STL, screenshots, scripts and JSON reports remain the **v0.4 baseline**. They do not represent v0.7 and must not be used to print this assembly. No revised 3D files were exported or uploaded; the revision is saved in Fusion only.
 
 - [Mechanics](docs/mechanics.md) · [Assembly](docs/assembly.md) · [BOM](docs/bom.md)
 - [Battery and wiring](docs/wiring.md) · [Printing status](docs/printing.md)
 - [Validation and remaining checks](docs/validation.md) · [References](reference/README.md)
 
-The actuator remains a placeholder. Its contact alignment with the fixed switch needs checking after relocation. The existing switch-rocker/chassis overlap remains unresolved. CAD checks are not physical fit or print validation.
+No actuator is present in the current live document; actuator design is reserved for manual work. The existing switch-rocker/chassis overlap remains unresolved. CAD checks are not physical fit or print validation.
 
 ## Historical v0.4 exports
 
