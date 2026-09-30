@@ -1,3 +1,16 @@
+# v0.5 — 2026-09-30
+
+- Save the battery revision in the live Mechanical Switch Fusion document; update repository documentation only.
+- Close three large external service apertures and add 36 Ø2.4 mm aesthetic vents.
+- Lower PCB mounting by 3.2 mm, rebuild right capture rails and extend lid pads.
+- Replace Print 02 with a small two-screw L-shaped horizontal servo stop.
+- Join the servo-enclosure rear gap to the outer wall and add the approved closed cable pocket opposite the horn.
+- Add an internal Gens ace 850 mAh 2S battery reference, tolerance-aware bay and soft-strap tunnels.
+- Overall envelope becomes 90 × 83 × 54.8 mm; servo, horn and actuator coordinates are preserved.
+- Check solid lumps, assembly intersections, maximum battery envelope and sampled actuator clearance.
+- Mark all existing repository geometry, images and JSON reports as historical v0.4. No new geometry exports.
+- Document unresolved connector/protection fit, voltage-variant confirmation and physical validation.
+
 # v0.4 — 2026-09-28
 
 - Synchronize repository to current manually edited Fusion assembly: four parts, 82 mm footprint.

@@ -1,11 +1,15 @@
-# Assembly — v0.4
+# Assembly — v0.5 Fusion prototype
 
-1. Print the chassis, clamp and cover. The actuator STL is only a fit-test placeholder. Remove supports and check mating faces.
-2. Test the Ø2.6 mm blind pilots with actual screws. Start screws squarely by hand and verify engagement before tightening.
-3. Seat the servo on its bed, route the lead, and install the broad clamp with two M3 screws. Confirm actual case fit; the CAD servo is simplified.
-4. Seat the PCB on the solid left platform and right ledges. Fit two screws at the left mounting positions. **The vendor PCB has modeled Ø2.75 mm holes, smaller than nominal M3 threads: confirm actual clearance and do not force screws through the PCB.** Printed pilots below are Ø2.6 mm for threading into plastic.
-5. Connect and strain-relieve all wiring before closing. Verify plug clearance and keep leads away from moving parts. The front display/buttons are intentionally inaccessible after closure.
-6. Fit the cover with four M3 screws. Two solid rectangular pads capture the right PCB edge. The lid must seat without bending the board or pressing its components.
-7. Check the enclosure against the physical switch before bonding. The reference rocker overlaps the retained rear shielding; resolve real fit first. Approximately 1 mm conformable adhesive is allowed for on the underside; keep the rear opening and strain-relief slots clear.
+The repository STLs are v0.4 and do not build this revision. Use the saved Fusion design for inspection; no new exports were produced.
 
-Final actuator geometry, material and operating travel remain undecided. CNC fabrication of that part is an option, not a supplied production drawing. Do not reuse v0.3 shoe dimensions or motion settings.
+1. Verify the purchased servo voltage variant, battery dimensions and connectors. Dry-fit the real switch; the reference-rocker/shielding overlap remains unresolved.
+2. With the PCB and new Print 02 stop removed, lower the servo into the open bay and slide it under the lowered right support rails. Route the lead into the pocket opposite the horn and up through its internal passage. Do not force the case under a rail.
+3. Fit the small L-shaped horizontal stop with two M3 screws at X=-3, Y=20 and 28. Start with approximately 8 mm under-head length; the flange is 3.2 mm thick and pilots extend from Z=11.8 to 5.0. Check engagement and bottoming on the actual print.
+4. Install the PCB at its lowered position. Two left screws secure it; right locating pins and the cover pads capture the opposite edge. The board reference has Ø2.75 mm holes: check actual fastener clearance before using M3.
+5. Fit a thin insulating pad on the battery support ribs and place the pack in its bay. Pass a soft strap through the two internal tunnels. Restrain it without crushing, puncturing or sharply bending its leads.
+6. Connect the servo at the board top. The hidden reference component contains an assumed 6 mm plug allowance and an above-battery lead volume; these are clearance guides, not vendor connector models. Keep all cables away from the horn, actuator and cover screws.
+7. Connect the fused battery harness and low-voltage protection to the board power input. Verify polarity and connector fit with the cover open. The stock DC jack is close to the left wall; a conventional straight barrel plug is not fit-validated. Select and physically check a compact right-angle pigtail before final printing.
+8. Close the cover with four M3 screws. Confirm that extended pads capture the PCB without bending it and that no battery leads are pinched. Open the cover to disconnect/remove the battery for external balance charging.
+9. Test low-speed, limited-travel actuation only after resolving physical switch fit and finalizing the actuator.
+
+No cable is intended to pass through an external service hole. Existing small slots and the new vents are not charging ports. Screw lengths and assembly access still require a physical trial.

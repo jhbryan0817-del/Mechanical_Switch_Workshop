@@ -1,16 +1,23 @@
-# Bill of materials — v0.4
+# Bill of materials — v0.5
 
 | Qty | Item | Notes |
 |---:|---|---|
-| 1 each | Chassis, servo clamp, closed cover | STLs 01, 02, 04 |
-| 1 optional | Actuator placeholder | STL 03, final geometry undecided |
-| 1 | STS3215 servo and stock horn | Confirm actual case and shaft hardware |
-| 1 | Waveshare Servo Driver with ESP32 | Existing manufacturer reference retained |
-| 4 | M3 cover screws | Approximately 12 mm under-head length; verify fit |
-| 2 | M3 clamp screws | Approximately 10 mm under-head length; verify fit |
-| 2 | Left PCB screws | M3 planned, 8–10 mm plastic engagement; check PCB clearance |
-| As needed | Actuator hardware | Finalize after physical trials |
-| As needed | Conformable adhesive | Approximately 1 mm gap; fit to actual plate |
-| As needed | Servo/power cables and ties | Check connectors and strain relief |
+| 1 each | Revised chassis, horizontal stop, cover | Saved in Fusion only; old repository STLs are incompatible |
+| 1 optional | Actuator placeholder | Geometry retained; not production-ready |
+| 1 | STS3215/ST3215 servo and stock horn | Confirm actual voltage variant and case/lead geometry |
+| 1 | Waveshare Servo Driver with ESP32 | Existing manufacturer PCB reference, lowered 3.2 mm |
+| 1 | Gens ace GEA8502S60E2 850 mAh 2S 7.4 V 60C battery, EC2 | 58 × 32 × 20 mm nominal; 63 × 34 × 22 mm published upper dimensions |
+| 1 | Mating EC2 internal harness | Correct polarity, insulation, strain relief and current rating |
+| 1 | Inline fuse and holder | Size from measured load/inrush and wire rating; no fuse value validated |
+| 1 | Suitable 2S low-voltage disconnect/protection | No integrated pack BMS assumed; hardware size not yet modeled |
+| 1 | Compact internal DC power pigtail | Match board's 5.5 × 2.1 mm input; physical fit unresolved |
+| 1 | External 2S LiPo balance charger | For EC2 discharge and JST-XHR-3P balance leads |
+| 1 | Soft battery strap and insulating pad | Nominal 0.5 mm pad allowance; do not compress pack |
+| 4 | M3 cover screws | Existing approximately 12 mm starting length; verify |
+| 2 | M3 horizontal-stop screws | Approximately 8 mm starting length; verify pilot depth |
+| 2 | Left PCB screws | Verify Ø2.75 mm board-hole clearance before using M3 |
+| As needed | Actuator hardware, adhesive, servo leads | Finalize after fit and force tests |
 
-Screw lengths are starting points, not a validated kit. Printed pilots are Ø2.6 mm. The PCB reference holes are Ø2.75 mm and may not provide M3 clearance. Electronics, screws, cables and adhesive are not included in the print meshes.
+Battery choice: [manufacturer specification](https://genstattu.com/gens-ace-850mah-2s-60c-7-4v-lipo-battery-ec2-plug-car-classic-non-g-tech/). The 850 mAh pack is close to the requested 1000 mAh and leaves a useful tolerance allowance within the compact enclosure. The researched Gens ace 1000 mAh alternative is 72 mm long nominal, with a stated ±5 mm length tolerance, too long for the 76 mm nominal internal span without further enlargement.
+
+The battery reference is a dimensional envelope, not an imported detailed vendor CAD assembly. Protection hardware and connector bodies need selection and fit verification before a powered build.

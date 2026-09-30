@@ -1,16 +1,11 @@
-# Printing — v0.4
+# Printing status — v0.5
 
-Import the four binary STLs in **millimetres at 100% scale**. They are centered in XY and seated on Z=0 in the intended orientation. CAD/STEP retain assembly coordinates. STL does not encode units.
+**No v0.5 geometry has been exported.** The files in `stl/` and `cad/` remain the v0.4 baseline. Their dimensions, print orientation and mesh checks do not apply to the battery revision. Do not combine the old broad clamp with the new Fusion chassis.
 
-| STL | Applied orientation | Size in print axes, mm |
-|---|---|---|
-| 01_integrated_chassis.stl | Adhesive floor down, open side up | 82 × 82 × 52 |
-| 02_servo_clamp.stl | Broad face down | 31 × 60.1 × 3.2 |
-| 03_actuator_PLACEHOLDER.stl | Horn mating face down | 26.2 × 24 × 20.7 |
-| 04_closed_branded_cover.stl | Exterior face down, pads up | 82 × 82 × 13.65 |
+The live Fusion document contains four single-solid print components: battery chassis, small horizontal stop, unchanged actuator placeholder and revised cover. Battery and wiring references are not printable parts.
 
-Print one of each enclosure part; the actuator is optional for fit experiments and is not a finalized working part. Suggested untested starting profile: PETG or ASA, 0.2 mm layers, 5–6 perimeters, 6 top/bottom layers, 35–50% infill and local higher infill around screw mounts. Follow the material/printer requirements.
+A future print preparation pass must choose orientations and check supports for the lowered rails, blind pilots, cable-pocket ceiling, battery strap tunnels and extended cover pads. The old clamp's broad-face-down orientation is no longer applicable.
 
-Inspect sliced layers before printing. Local supports may be needed under elevated right PCB ledges and wiring openings. Avoid supports inside blind pilot bores where possible. Cover lettering faces the bed; use a clean flat surface and inspect first-layer detail. Inspect the placeholder actuator separately for supports.
+Suggested untested starting material/profile remains PETG or ASA, 0.2 mm layers, 5–6 perimeters and local reinforcement around screw mounts. Verify pilot fit in actual material; do not globally scale the design to fix holes. Deburr battery-contact surfaces and add the intended insulating pad/soft strap.
 
-Test Ø2.6 mm pilot fit with the actual filament and screw. Do not globally scale the model to correct a hole. Fit-test the servo, PCB, connectors and real switch before a final build. Mesh closure is not a strength or physical-fit certification.
+No new slicing, mesh validation or print trials were performed. Physical battery, protection-hardware, plug and screw fit must be resolved before final printing.
