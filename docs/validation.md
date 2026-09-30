@@ -1,24 +1,23 @@
-# Validation — v0.5 Fusion revision, 2026-09-30
+# Validation — v0.6 Fusion revision, 2026-09-30
 
-The revised Mechanical Switch document was saved in Fusion. No geometry or new JSON reports were exported to the repository. The existing files under `validation/` describe v0.4 only.
+The Mechanical Switch cloud document was saved successfully with `isModified=false`. This repository update changes documentation only. Existing geometry, images, scripts and JSON reports remain v0.4; no revised 3D files were exported or uploaded.
 
-## Checks performed in Fusion
+## Checks on the revised live design
 
-- Each of the four PRINT components contains one solid lump.
-- Pairwise temporary-BRep intersections among chassis, servo/horn, PCB bodies, horizontal stop, neutral actuator, cover and nominal battery reported no positive volumes above 0.001 mm³.
-- The maximum vendor battery envelope, 63 × 34 × 22 mm, has zero calculated intersection volume with chassis or cover.
-- The unchanged actuator was rotated about the modeled shaft axis at −15, −12, −8, 0, 8, 12 and 15 degrees. At every sample, calculated intersection volume with chassis, new stop and maximum battery envelope was zero.
-- Open and closed assembly views were inspected. The board and battery are present; the cover is left hidden for internal inspection.
-- Fusion reported the active document saved with `isModified=false`.
+- Each of the four PRINT components contains exactly one solid body and one lump.
+- Final pairwise temporary-BRep checks among chassis, servo/horn, PCB bodies, stop, neutral actuator, cover and nominal battery found no intersections above 0.001 mm³. Pairs within the same reference component were excluded.
+- Maximum battery envelope (63 × 22 × 34 mm in assembly XYZ) has zero calculated intersection volume with chassis and cover.
+- Actuator rotations at −15, −12, −8, 0, 8, 12 and 15 degrees about the relocated shaft axis (X direction, Y=4.8, Z=22) have zero calculated intersection volume with chassis, stop, maximum battery envelope and cover.
+- Assumed servo-header plug and battery lead-storage volumes have zero calculated intersection volume with chassis and cover.
+- Open, populated and closed views were inspected. The saved inspection view shows chassis, stop and battery, with PCB, servo, actuator and cover hidden to expose the edits.
+- Chassis and cover end at Y=-41; enclosure envelope is 90 × 82 × 54.8 mm. Servo ends at Y=37.65, leaving 0.35 mm to the front wall.
 
 ## Limits and unresolved items
 
-This is a fit-test prototype. The angle samples are not a continuous sweep or a validated working travel range. No physical assembly, print trial, thermal/load test, firmware calibration, battery-runtime measurement or FEA was performed.
+The fixed tilted-rocker reference still overlaps the chassis: **251.30 mm³** in this revision. This is an unresolved interference, not a passing switch-fit result. The actuator moved +4.8 mm with the servo while the switch reference stayed fixed. Contact position, force, travel and real mounting alignment require revalidation before use.
 
-The pre-existing switch-rocker/shielding overlap was not changed or revalidated; v0.4 recorded approximately 242.9 mm³. Real switch fit and final actuator geometry remain unresolved.
+Angle samples do not establish a continuous collision-free sweep or an operating range. No slicing, mesh export, print trial, structural analysis, electrical test or physical assembly was performed. Removing one PCB tab reduces corner support; check board flex, remaining rail strength, screw engagement and cover-pad pressure in the selected print material.
 
-The servo model is simplified. Cable/connector references are assumed clearance volumes, not detailed manufacturer geometry. Verify actual servo lead exit, bend radius, board connector headroom and the insertion sequence. The stock board DC jack is close to the left wall; actual internal power-pigtail fit is unresolved.
+Servo and cable/connector references are simplified. Verify actual lead exit, bend radius, plug access and insertion sequence. The stock DC jack remains close to the left wall; compact power-pigtail fit is unresolved. Fuse and low-voltage-protection hardware is not modeled.
 
-The battery bay accounts for the vendor's stated dimensional maxima, but cell tabs, wrapping, connector exits and pack condition must be measured. Confirm the actual servo voltage variant before using a fully charged 2S pack. Fuse and low-voltage protection hardware are required for the proposed wiring architecture but have not been selected, modeled or electrically tested.
-
-Check Ø2.75 mm PCB holes against actual fasteners, printed pilot strength, cover-pad pressure, battery strap retention, and adhesive loading with the added battery mass. Do not interpret old STL closure checks as validation of this revision.
+The maximum battery envelope includes documented dimensional tolerance, but tabs, wrapping, leads and connector exits need measurement. Check soft-strap threading and retention, deburr contact surfaces and use the insulating pad. Old STL closure reports do not validate this revision.

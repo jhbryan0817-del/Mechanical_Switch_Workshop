@@ -1,11 +1,11 @@
-# Bill of materials — v0.5
+# Bill of materials — v0.6
 
 | Qty | Item | Notes |
 |---:|---|---|
 | 1 each | Revised chassis, horizontal stop, cover | Saved in Fusion only; old repository STLs are incompatible |
-| 1 optional | Actuator placeholder | Geometry retained; not production-ready |
+| 1 optional | Actuator placeholder | Shape retained, moved +4.8 mm in Y; not production-ready |
 | 1 | STS3215/ST3215 servo and stock horn | Confirm actual voltage variant and case/lead geometry |
-| 1 | Waveshare Servo Driver with ESP32 | Existing manufacturer PCB reference, lowered 3.2 mm |
+| 1 | Waveshare Servo Driver with ESP32 | Manufacturer PCB reference; lowered 3.2 mm and moved +4.8 mm in Y |
 | 1 | Gens ace GEA8502S60E2 850 mAh 2S 7.4 V 60C battery, EC2 | 58 × 32 × 20 mm nominal; 63 × 34 × 22 mm published upper dimensions |
 | 1 | Mating EC2 internal harness | Correct polarity, insulation, strain relief and current rating |
 | 1 | Inline fuse and holder | Size from measured load/inrush and wire rating; no fuse value validated |

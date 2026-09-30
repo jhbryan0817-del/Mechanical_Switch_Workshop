@@ -1,3 +1,14 @@
+# v0.6 — 2026-09-30
+
+- Save the revised layout in the live Mechanical Switch Fusion document; update documentation only.
+- Remove the upper-right PCB tab and matching cover pad; open the cable groove uniformly.
+- Align the remaining lower-right PCB support and join its flange continuously.
+- Remove 4.8 mm of front filler and move servo/horn, stop, PCB, actuator, supporting geometry and battery forward by 4.8 mm (+Y).
+- Move the actuator clearance window and cover capture pads with the relocated components.
+- Flatten the battery-side wall and matching cover edge; enclosure envelope becomes 90 × 82 × 54.8 mm.
+- Verify single-solid print parts, assembly intersections, maximum battery clearance, assumed lead volumes and seven actuator-angle samples.
+- Record remaining fixed-rocker/chassis overlap (251.30 mm³) and the need to recheck actuator contact alignment and physical PCB retention.
+- Leave all CAD, STEP, STL, images, export scripts and JSON reports unchanged at v0.4. No revised 3D files exported or uploaded.
 # v0.5 — 2026-09-30
 
 - Save the battery revision in the live Mechanical Switch Fusion document; update repository documentation only.

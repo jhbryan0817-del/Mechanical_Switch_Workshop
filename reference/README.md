@@ -1,6 +1,6 @@
-# References and assumptions — v0.5
+# References and assumptions — v0.6
 
-The live **Mechanical Switch** Fusion document is authoritative for v0.5:
+The live **Mechanical Switch** Fusion document is authoritative for v0.6:
 `urn:adsk.wipprod:dm.lineage:CupzHhEKR8SBy7rRZjCF3g`.
 
 The repository's F3D, STEP, STLs, images and JSON reports are retained v0.4 references. No new CAD is uploaded for this revision.
@@ -17,6 +17,6 @@ The researched [1000 mAh 2S Gens ace alternative](https://genstattu.com/gens-ace
 - [Waveshare ST3215](https://www.waveshare.com/product/modules/st3215-servo.htm): distinguish voltage variants. The proposed 2S supply assumes the 6–12.6 V version.
 - User-identified [Schneider S-Classic E31_1_2AR_WE](https://www.se.com/hk/en/product/E31_1_2AR_WE/sclassic-1way-switch-1-gang-white/): existing 86 mm faceplate reference retained. Rocker force/travel and plate curvature are unverified.
 
-The approved cable pocket increases overall width to 90 mm; the battery-side wall adds 1 mm, making the other overall dimension 83 mm. The central mounting arrangement and actuator position are preserved.
+The retained cable pocket makes the overall width 90 mm. Removing the battery-side bump restores the other enclosure dimension to 82 mm. Servo, PCB, actuator, battery and associated supports moved +4.8 mm toward the front wall (+Y). The fixed switch reference did not move; actuator contact alignment must be rechecked.
 
 The 6 mm servo-header plug allowance and battery lead-storage volume are design assumptions. Power-pigtail and protection-module fit remain unresolved. See [validation](../docs/validation.md).
