@@ -1,6 +1,6 @@
 # Assembly — v0.7 Fusion prototype
 
-The repository STLs are v0.4 and do not build this revision. Use the saved Fusion design for inspection; no new exports were produced.
+Use the three [current STLs](printing.md) exported on 2026-10-02: chassis, horizontal servo stop and cover. Archived v0.4 files do not build this revision. These parts still require physical fit checks; no actuator is included.
 
 1. Verify the purchased servo voltage variant, battery dimensions and connectors. Dry-fit the real switch; the reference-rocker/shielding overlap remains unresolved.
 2. With the PCB and new Print 02 stop removed, lower the servo into the open bay and slide it under the remaining lowered right support. Route the lead into the pocket opposite the horn and up through its internal passage. Do not force the case under a rail.

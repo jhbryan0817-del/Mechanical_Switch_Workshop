@@ -1,58 +1,177 @@
-[
-  {
-    "file": "01_integrated_chassis.stl",
-    "source_component": "PRINT 01 - 82mm integrated adhesive chassis:1",
-    "units": "mm",
-    "solid": true,
-    "lumps": 1,
-    "volume_mm3": 106120.41241657989,
-    "print_min_z_mm": 0.0,
-    "print_size_mm": [
-      82.0,
-      82.0,
-      52.0
-    ]
-  },
-  {
-    "file": "02_servo_clamp.stl",
-    "source_component": "PRINT 02 - broad servo clamp M3:1",
-    "units": "mm",
-    "solid": true,
-    "lumps": 1,
-    "volume_mm3": 2788.4029541081254,
-    "print_min_z_mm": 0.0,
-    "print_size_mm": [
-      31.0,
-      60.1,
-      3.2
-    ]
-  },
-  {
-    "file": "03_actuator_PLACEHOLDER.stl",
-    "source_component": "PRINT 03 - solid rocker actuator M3:1",
-    "units": "mm",
-    "solid": true,
-    "lumps": 1,
-    "volume_mm3": 10230.20352219955,
-    "print_min_z_mm": 0.0,
-    "print_size_mm": [
-      26.2,
-      24.0,
-      20.7
-    ]
-  },
-  {
-    "file": "04_closed_branded_cover.stl",
-    "source_component": "PRINT 04 - cover and PCB capture:1",
-    "units": "mm",
-    "solid": true,
-    "lumps": 1,
-    "volume_mm3": 19560.88847987394,
-    "print_min_z_mm": 0.0,
-    "print_size_mm": [
-      82.0,
-      82.0,
-      13.65
-    ]
-  }
-]
+{
+  "export_date": "2026-10-02",
+  "source_document": "Mechanical Switch",
+  "source_file_id": "urn:adsk.wipprod:dm.lineage:CupzHhEKR8SBy7rRZjCF3g",
+  "saved_version_number": 9,
+  "source_has_unsaved_changes": true,
+  "design_units": "mm",
+  "export_units": "mm",
+  "mesh_refinement": "High",
+  "format": "binary STL",
+  "parts": [
+    {
+      "file": "01_integrated_chassis.stl",
+      "source_component": "PRINT 01 - battery chassis and internal cable pocket",
+      "source_body": "PRINT 01 - smooth battery chassis v0.7 (1)",
+      "solid": true,
+      "lumps": 1,
+      "cad_volume_mm3": 102789.71468813934,
+      "assembly_bounds_mm": [
+        [
+          -41.0,
+          -41.0,
+          1.0000000000000009
+        ],
+        [
+          49.0,
+          41.0,
+          52.999999999999986
+        ]
+      ],
+      "surface_deviation_mm": 0.06635385849481544,
+      "maximum_edge_length_mm": 1323.9335330748293,
+      "print_orientation": "Chassis floor down; assembly axes retained",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "translation_mm": [
+        -4.0,
+        -0.0,
+        -1.0
+      ],
+      "print_size_mm": [
+        90.0,
+        82.0,
+        52.0
+      ],
+      "sha256": "d26daa457ee55f911305de00eb36501d4a90006cee792cfc11c2354c138f4a3c",
+      "bytes": 458884,
+      "triangles": 9176,
+      "fusion_normal_deviation_value": 10.0
+    },
+    {
+      "file": "02_horizontal_servo_stop.stl",
+      "source_component": "PRINT 02 - horizontal servo stop M3",
+      "source_body": "PRINT 02 - horizontal stop 2.6mm pilots v0.7",
+      "solid": true,
+      "lumps": 1,
+      "cad_volume_mm3": 1058.4405338587715,
+      "assembly_bounds_mm": [
+        [
+          -6.0,
+          21.799999999999997,
+          12.0
+        ],
+        [
+          2.6500000000000004,
+          35.8,
+          34.2
+        ]
+      ],
+      "surface_deviation_mm": 0.013850030584813464,
+      "maximum_edge_length_mm": 276.344440870447,
+      "print_orientation": "Stop outer flange down; -90 degrees about assembly Y",
+      "rotation_matrix": [
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "translation_mm": [
+        23.100000381469727,
+        -28.799999237060547,
+        6.0
+      ],
+      "print_size_mm": [
+        22.200000762939453,
+        14.0,
+        8.650000095367432
+      ],
+      "sha256": "a61c861ab2fdfd9f0161bfd94b9c07b9d2d53f985345b453c88319a5381445d8",
+      "bytes": 42684,
+      "triangles": 852,
+      "fusion_normal_deviation_value": 10.0
+    },
+    {
+      "file": "03_cover_and_pcb_capture.stl",
+      "source_component": "PRINT 03 - cover and PCB capture",
+      "source_body": "PRINT 04 - cover with lowered PCB capture (1)",
+      "solid": true,
+      "lumps": 1,
+      "cad_volume_mm3": 19346.384479873905,
+      "assembly_bounds_mm": [
+        [
+          -41.0,
+          -41.0,
+          38.95
+        ],
+        [
+          41.0,
+          41.0,
+          55.79999999999999
+        ]
+      ],
+      "surface_deviation_mm": 0.05908256178221302,
+      "maximum_edge_length_mm": 1178.8520899587022,
+      "print_orientation": "Cover exterior down; 180 degrees about assembly X",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "translation_mm": [
+        -0.0,
+        -0.0,
+        55.79999923706055
+      ],
+      "print_size_mm": [
+        82.0,
+        82.0,
+        16.849998474121094
+      ],
+      "sha256": "b9887ed1f3c456e0d690a668cad79f9aca4b5a5c11e971f2aa9d8d059f261b82",
+      "bytes": 292884,
+      "triangles": 5856,
+      "fusion_normal_deviation_value": 10.0
+    }
+  ],
+  "source_modified_after_export": true,
+  "processing": "Rigid rotations and translations of vertices and normals only; centered in XY with lowest mesh vertex at Z=0. No scaling, repair or geometry edits."
+}

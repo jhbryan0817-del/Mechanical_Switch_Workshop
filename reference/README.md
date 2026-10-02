@@ -3,7 +3,7 @@
 The live **Mechanical Switch** Fusion document is authoritative for v0.7:
 `urn:adsk.wipprod:dm.lineage:CupzHhEKR8SBy7rRZjCF3g`.
 
-The repository's F3D, STEP, STLs, images and JSON reports are retained v0.4 references. No new CAD is uploaded for this revision.
+The repository's F3D, STEP and images remain v0.4 references. Historical STLs/reports are archived under `stl/historical/v0.4/` and `validation/historical/v0.4/`. The three top-level STLs and current export/mesh reports were generated from the live Mechanical Switch document on 2026-10-02. No new F3D or STEP was uploaded for this export.
 
 ## Battery
 

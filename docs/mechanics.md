@@ -1,6 +1,6 @@
 # Mechanical design — v0.7
 
-Saved in the live Mechanical Switch Fusion document on 2026-09-30. Repository geometry remains v0.4. Coordinates are assembly millimetres; Z is normal to the switch plate. **Front** means the +Y wall opposite the battery, confirmed against the user's open-enclosure view.
+The v0.7 cleanup was saved in the live Mechanical Switch Fusion document on 2026-09-30. Current printable geometry was exported on 2026-10-02, including unsaved edits on top of Fusion cloud version 9. The three top-level repository STLs are current; CAD/STEP and images remain historical v0.4. Coordinates below are assembly millimetres; Z is normal to the switch plate. Print meshes are independently rotated/translated to Z=0, so their coordinates differ from this table. **Front** means the +Y wall opposite the battery, confirmed against the user's open-enclosure view.
 
 ## Layout and clearances
 

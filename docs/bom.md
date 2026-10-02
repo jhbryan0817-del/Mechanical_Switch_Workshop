@@ -2,7 +2,7 @@
 
 | Qty | Item | Notes |
 |---:|---|---|
-| 1 each | Revised chassis, horizontal stop, cover | Saved in Fusion only; old repository STLs are incompatible |
+| 1 each | Revised chassis, horizontal stop, cover | Current 2026-10-02 STLs in `stl/`; archived v0.4 meshes are incompatible |
 | 1 | Manually designed actuator | Not present in current live model; user will design it |
 | 1 | STS3215/ST3215 servo and stock horn | Confirm actual voltage variant and case/lead geometry |
 | 1 | Waveshare Servo Driver with ESP32 | Manufacturer PCB reference; lowered 3.2 mm and moved +4.8 mm in Y |

@@ -1,3 +1,13 @@
+# Current v0.7 print export — 2026-10-02
+
+- Export the active Mechanical Switch document's three single-solid PRINT components, including unsaved changes on top of Fusion cloud version 9.
+- Publish millimetre binary STLs at High mesh refinement for the chassis, horizontal servo stop and cover.
+- Orient each mesh for printing, center it in XY and set minimum Z=0 using rigid transforms only.
+- Verify closed edges, consistent winding/normals, one connected shell, nondegenerate triangles, positive volume, dimensions and checksums. All three pass; mesh/CAD volume differences are below 0.006%.
+- Archive incompatible v0.4 meshes, actuator placeholder and validation reports under historical folders.
+- Update printing, assembly, BOM, provenance and validation documentation. Preserve known fit limitations and label prior interference checks by date.
+- Leave Fusion geometry unsaved and unchanged; retain historical CAD/STEP and screenshots.
+
 # v0.7 — 2026-09-30
 
 - Save cleanup in the live Mechanical Switch Fusion document; update Markdown documentation only.
